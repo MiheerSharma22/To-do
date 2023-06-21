@@ -1,0 +1,200 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrapper{
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background: black;
+    padding: 3rem 0;
+    overflow-x: hidden;
+}
+
+.emptyErrorMessage{
+    background-color: #fff;
+    border: none;
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    translate: -50%;
+    transform: scale(0);
+    padding: 1rem;
+    border-radius: 15px;
+    opacity: 0;
+    transition: all 200ms ease;
+    font-weight: 500;
+    min-width: fit-content;
+}
+.show{
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: top;
+}
+
+.todoContainer{
+    width: 60%;
+    min-height: 80vh;
+    margin: auto;
+    border-radius: 2rem;
+    padding: 2rem;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: white;
+    font-size: 1.2rem;
+}
+
+.todoContainer p {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    color: #FF5733;
+}
+
+.todoContainer div {
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    white-space: pre-line;
+    gap: 1rem;
+}
+
+.todoContainer div:hover {
+    background: rgba(255, 255, 255, 0.132);
+    cursor: pointer;
+    transition: all;
+    transition-duration: 0.2s;
+}
+
+input[type = 'checkbox'] {
+    appearance: none;
+    min-width: 20px;
+    min-height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 7px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type = 'checkbox']:checked::after {
+    position: absolute;
+    content: '✓';
+    color:#FF5733;
+    font-size: 1.3rem;
+    font-weight: bold;
+    bottom: -1px;
+}
+
+.addItems {
+    padding: 0.7rem 2rem;
+    background: linear-gradient(90deg, rgba(189,37,37,1) 5%, rgba(210,39,39,1) 100%);
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+    position: fixed;
+    top: 85%;
+    right: 4%;
+}
+
+.addItems:hover{
+    outline: 1px solid rgba(189,37,37,1);
+    color: rgba(189,37,37,1);
+    background: transparent;
+    transition: all 0.2s ease-out;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000ab;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+.labelContainer {
+    background: #fff;
+    width: 50%;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+label {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#todoItemToBeAdded {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    outline: none;
+}
+
+.closeModal{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    width: 2rem;
+    aspect-ratio: 1/1;
+    border: 2px solid #FF5733 ;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    color: #FF5733 ;
+    font-weight: 700;
+}
+
+.closeModal:hover {
+    background: #FF5733 ;
+    color: white;
+    transform: rotate(360deg);
+    transition: all;
+    transition-duration: 0.2s;
+}
+
+.add {
+    width: fit-content;
+    padding: 0.7rem 2rem;
+    background: linear-gradient(90deg, rgba(189,37,37,1) 5%, rgba(210,39,39,1) 100%);
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 2rem;
+    margin-top: 0.75rem;
+}
+
+.add:hover{
+    outline: 1px solid rgba(189,37,37,1);
+    color: rgba(189,37,37,1);
+    background: transparent;
+    transition: all 0.2s ease-out;
+}
+
+.active {
+    display: flex;
+}
