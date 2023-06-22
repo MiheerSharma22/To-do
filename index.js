@@ -30,22 +30,36 @@ function addUpdateAndDeleteButtons(parentDiv) {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.classList.add('buttonsContainer');
 
+    // creating the update button and setting its listeners
     const updateBtn = document.createElement('button');
     updateBtn.setAttribute('class', 'updateBtn');
-    updateBtn.innerHTML = `<img src='./assets/updateIcon.jpg' width=20 height=20/>`;
+    updateBtn.innerHTML = `<img src='./assets/updateIcon.png' width=25 height=30/>`;
 
     //adding update functionality upon clicking pencil icon
+    // Approach -> as soon user clicks on pencil the label in that todo is replaced with an input tag with value same as that of label's textContent
+    // and when the user presses enter, this input is again replaced by label with input's value as its textContent
     updateBtn.addEventListener('click', (event)=>{
+        // disabling button and img after user clicked edit once
+        event.target.disabled = true;
+        event.target.parentNode.disabled = true;
+
         const label = parentDiv.children[0].children[1];
         const  labelToBeEdited = document.createElement("input");
         const editedLabel = document.createElement('label');
+
+        // setting the content in input that was already there in label
         labelToBeEdited.setAttribute("type", "text");
+        labelToBeEdited.value = label.textContent;
         labelToBeEdited.style.backgroundColor = "transparent";
         
+        // removing current label
         parentDiv.children[0].removeChild(label);
+        // replacing removed label by input
         parentDiv.children[0].appendChild(labelToBeEdited);
         labelToBeEdited.focus();
 
+        // adding listener on input as when user presses enter the text inside input becomes textContent of a newly created label tag
+        // and this label tag replaces the input tag 
         labelToBeEdited.addEventListener('keydown', (ev)=> {
             if(ev.key === "Enter"){
                 if(ev.target.value === "") {
@@ -55,16 +69,21 @@ function addUpdateAndDeleteButtons(parentDiv) {
                     }, 2000);
                     return;
                 }
-                console.log(ev.target.value);
                 editedLabel.setAttribute('for', ev.target.parentNode.children[0].id);
                 editedLabel.textContent = ev.target.value;
                 parentDiv.children[0].removeChild(ev.target);
+
+                // enabling button and its image once user presses enter key that is once user is done editing the title of to-do
+                event.target.disabled = false;
+                event.target.parentNode.disabled = false;
             }
         });
         
         parentDiv.children[0].appendChild(editedLabel);
-    })
+    });
 
+
+    // creating the delete button and setting listeners on it
     const deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class', 'deleteBtn');
     deleteBtn.innerHTML = `<img src="./assets/deleteIcon.png" width=25 height=30/>`;
@@ -124,6 +143,7 @@ function appendItemToList() {
 
 
 // adding event listeners
+
 addItemInputField.addEventListener("keydown", (event)=>{
     if(event.keyCode === 13)
         appendItemToList();
