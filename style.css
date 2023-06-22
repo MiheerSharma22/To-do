@@ -59,22 +59,47 @@
     color: #FF5733;
 }
 
-.todoContainer div {
+.todoContainer .parentDiv {
     padding: 1rem 1.5rem;
     font-size: 1.5rem;
     border-radius: 10px;
     height: fit-content;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     white-space: pre-line;
-    gap: 1rem;
 }
 
-.todoContainer div:hover {
-    background: rgba(255, 255, 255, 0.132);
+.parentDiv .checkbox-container{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
     cursor: pointer;
+}
+
+.checkbox-container input[type="text"]{
+    padding:0.5rem;
+    font-size: 1.2rem;
+    outline: none;
+    color: white;
+}
+
+.todoContainer .parentDiv:hover {
+    background: rgba(255, 255, 255, 0.132);
     transition: all;
     transition-duration: 0.2s;
+}
+
+.buttonsContainer{
+   display: flex;
+   gap: 1rem;
+   align-items: center;
+   cursor: default;
+}
+.updateBtn, .deleteBtn {
+    cursor: pointer;
+    background: transparent;
+    border: none;
 }
 
 input[type = 'checkbox'] {
