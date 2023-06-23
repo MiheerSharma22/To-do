@@ -1,4 +1,4 @@
-const listContainer = document.querySelector('.todoContainer');
+const listContainer = document.querySelector('.todoContainer'); 
 const addItemsButton = document.querySelector('.addItems');
 const modal = document.querySelector('.modal');
 const labelContainer = document.querySelector('.labelContainer');
@@ -109,6 +109,7 @@ function appendItemToList() {
         setTimeout(() => {
             emptyErrorMessage.classList.remove("show");
         }, 2000);
+
         return;
     }
 
@@ -137,9 +138,8 @@ function appendItemToList() {
         currLabelText.style.textDecoration = "none";
     })
 
-    closeModal();
+    closeModal();  
 }
-
 
 
 // adding event listeners
