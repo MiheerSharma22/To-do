@@ -40,8 +40,9 @@ function addUpdateAndDeleteButtons(parentDiv) {
     // and when the user presses enter, this input is again replaced by label with input's value as its textContent
     updateBtn.addEventListener('click', (event)=>{
         // disabling button and img after user clicked edit once
+        console.log(event);
         event.target.disabled = true;
-        event.target.parentNode.disabled = true;
+        // event.target.parentNode.disabled = true;
 
         const label = parentDiv.children[0].children[1];
         const  labelToBeEdited = document.createElement("input");
@@ -92,7 +93,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
     // adding delete functionality upon clicking delete button of each todo item seperately
     deleteBtn.addEventListener('click', (event) => {
-        event.target.parentNode.parentNode.parentNode.remove(event.target.parentNode.parentnode);
+        event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
     })
 
     parentDiv.appendChild(buttonsContainer);
@@ -126,8 +127,11 @@ function appendItemToList() {
 
    addUpdateAndDeleteButtons(parentDiv);
     
+   //todo: discuss adding inputs on checkbox
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
-    parentDiv.children[0].addEventListener('change', (event)=> {
+    // parentDiv.children[0].children[0].addEventListener('change', (event)=> {
+    const currentCheckBox = document.getElementById(`todo${numberOfTodos-1}`);
+    currentCheckBox.addEventListener('change', (event)=> {
         const currLabelText = event.target.parentNode.children[1];
         if (event.target.checked) {
             currLabelText.style.textDecoration = "line-through";

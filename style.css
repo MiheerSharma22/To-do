@@ -103,6 +103,10 @@
     border: none;
 }
 
+.updateBtn img, .deleteBtn img {
+    pointer-events: none;
+}
+
 input[type = 'checkbox'] {
     appearance: none;
     min-width: 20px;

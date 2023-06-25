@@ -10,6 +10,11 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    todoId: {
+        type: String,
+        required: true,
+        trim: true
     }
 });
 
