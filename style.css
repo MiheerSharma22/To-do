@@ -264,4 +264,14 @@ label {
         place-self: center;
         position:static;
     }
+
+    .labelContainer {
+        width: 80%;
+    }
+}
+
+@media(max-width:430px) {
+    .labelContainer{
+        width: 95%;
+    }
 }
