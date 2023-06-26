@@ -91,8 +91,20 @@ function addUpdateAndDeleteButtons(parentDiv) {
     buttonsContainer.appendChild(deleteBtn);
     buttonsContainer.appendChild(updateBtn);
 
-    // adding delete functionality upon clicking delete button of each todo item seperately
-    deleteBtn.addEventListener('click', (event) => {
+    // adding delete functionality upon clicking delete button of each todo item seperately 
+    deleteBtn.addEventListener('click', async (event) => {
+        // making a backend call to delete current todo from the database
+        const todoId = event.target.parentNode.parentNode.children[0].children[0].id;
+        const deleteTodoRequest = JSON.stringify({todoId});
+        const response  =await fetch('http://localhost:4000/api/v1/deleteTodo', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: deleteTodoRequest,
+      })
+
+      //removing current todo from the list on the front end
         event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
     })
 
@@ -102,7 +114,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
 
 // function to append new todo item into the list container
-function appendItemToList() {
+async function appendItemToList() {
     // if no title is given to todo display an error popup
     if(addItemInputField.value === "") {
         closeModal();
@@ -131,7 +143,7 @@ function appendItemToList() {
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
     // parentDiv.children[0].children[0].addEventListener('change', (event)=> {
     const currentCheckBox = document.getElementById(`todo${numberOfTodos-1}`);
-    currentCheckBox.addEventListener('change', (event)=> {
+    currentCheckBox.addEventListener('change', async (event)=> {
         const currLabelText = event.target.parentNode.children[1];
         if (event.target.checked) {
             currLabelText.style.textDecoration = "line-through";
@@ -140,14 +152,52 @@ function appendItemToList() {
         }
         else
         currLabelText.style.textDecoration = "none";
+
+        // making a backend call to update todo checked prop every time todo is checked or unchecked
+        const updatedTitle = currLabelText.textContent;
+        const checked = currentCheckBox.checked;
+        const todoId = currentCheckBox.id;
+
+        const updateTodoRequest = JSON.stringify({
+            updatedTitle,
+            todoId,
+            checked
+        });
+        const response  =await fetch('http://localhost:4000/api/v1/updateTodo', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: updateTodoRequest,
+        })
+        console.log("Updated todo is: ", response.json());
     })
 
+    // making a request into the backend to create a todo
+    console.log("Making a backend request")
+    const title = parentDiv.children[0].children[1].textContent;
+    const todoId = `todo${numberOfTodos-1}`
+    const createTodoRequest = JSON.stringify({
+        title,
+        todoId
+    });
+
+    const response  =await fetch('http://localhost:4000/api/v1/addTodo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: createTodoRequest,
+      })
+
+      console.log(response.json());
+
+    // after adding a new todo close the modal
     closeModal();  
 }
 
 
 // adding event listeners
-
 addItemInputField.addEventListener("keydown", (event)=>{
     if(event.keyCode === 13)
         appendItemToList();

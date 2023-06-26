@@ -41,7 +41,7 @@ exports.addTodo = async(req,res) => {
 // update todo
 exports.updateTodo = async(req, res) => {
     try {
-        const {updatedTitle, todoId} = req.body;
+        const {updatedTitle, todoId, checked} = req.body;
 
         if(!updatedTitle || !todoId) {
             res.status(403).json({
@@ -54,7 +54,8 @@ exports.updateTodo = async(req, res) => {
         const updatedTodo = await Todo.findOneAndUpdate(
             {todoId: todoId}, 
             {
-                title: updatedTitle
+                title: updatedTitle,
+                checked: checked
             },
             {
                 new: true,
@@ -73,7 +74,8 @@ exports.updateTodo = async(req, res) => {
         // sending successful reposne
         return res.status(200).json({
             success: true,
-            message: "Updated todo title"
+            message: "Updated todo title",
+            updatedTodo: updatedTodo
         })
 
     } catch(error) {

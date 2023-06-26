@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 
+const routers = require('./routes/todo');
+const dbConnect  = require('./config/databse');
+const cors = require('cors');
+
 //loading config from .env file
 require('dotenv').config();
 const PORT = process.env.PORT || 3000
@@ -9,12 +13,19 @@ const PORT = process.env.PORT || 3000
 // middleware to parse json request body
 app.use(express.json());
 
+// adding cors middleware to facilitate communication between server(backend) and client(frontend) via requests and responses
+app.use(
+    cors ({
+        origin: "http://127.0.0.1:5500",           // front end path(url) from where the request will be made to the backend or server
+        credentials: true
+    })
+)
+
+
 // mounting the routes
-const routers = require('./routes/todo')
 app.use("/api/v1", routers);
 
 // CONNECTING TO DB
-const dbConnect  = require('./config/databse')
 dbConnect(); 
 
 
