@@ -38,7 +38,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
     //adding update functionality upon clicking pencil icon
     // Approach -> as soon user clicks on pencil the label in that todo is replaced with an input tag with value same as that of label's textContent
     // and when the user presses enter, this input is again replaced by label with input's value as its textContent
-    updateBtn.addEventListener('click', (event)=>{
+    updateBtn.addEventListener('click',  (event)=>{
         // disabling button and img after user clicked edit once
         console.log(event);
         event.target.disabled = true;
@@ -61,7 +61,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
         // adding listener on input as when user presses enter the text inside input becomes textContent of a newly created label tag
         // and this label tag replaces the input tag 
-        labelToBeEdited.addEventListener('keydown', (ev)=> {
+        labelToBeEdited.addEventListener('keydown', async (ev)=> {
             if(ev.key === "Enter"){
                 if(ev.target.value === "") {
                     emptyErrorMessage.classList.add("show");
@@ -74,9 +74,27 @@ function addUpdateAndDeleteButtons(parentDiv) {
                 editedLabel.textContent = ev.target.value;
                 parentDiv.children[0].removeChild(ev.target);
 
-                // enabling button and its image once user presses enter key that is once user is done editing the title of to-do
+                // making a backend call to update todo checked prop every time todo is checked or unchecked
+                const updatedTitle = editedLabel.textContent;
+                const checked = editedLabel.parentNode.children[0].checked;
+                const todoId = editedLabel.parentNode.children[0].id;
+
+                const updateTodoRequest = JSON.stringify({
+                    updatedTitle,
+                    todoId,
+                    checked
+                });
+                const response  =await fetch('http://localhost:4000/api/v1/updateTodo', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: updateTodoRequest,
+                })
+                console.log("Updated todo after updating the title is: ", response.json());
+
+                // enabling pencil button once user presses enter key that is once user is done editing the title of to-do
                 event.target.disabled = false;
-                event.target.parentNode.disabled = false;
             }
         });
         
