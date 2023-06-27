@@ -38,10 +38,10 @@ exports.addTodo = async(req,res) => {
 
 
 
-// update todo
-exports.updateTodo = async(req, res) => {
+// update todo title
+exports.updateTodoTitle = async(req, res) => {
     try {
-        const {updatedTitle, todoId, checked} = req.body;
+        const {updatedTitle, todoId} = req.body;
 
         if(!updatedTitle || !todoId) {
             res.status(403).json({
@@ -55,7 +55,6 @@ exports.updateTodo = async(req, res) => {
             {todoId: todoId}, 
             {
                 title: updatedTitle,
-                checked: checked
             },
             {
                 new: true,
@@ -75,6 +74,56 @@ exports.updateTodo = async(req, res) => {
         return res.status(200).json({
             success: true,
             message: "Updated todo title",
+            updatedTodo: updatedTodo
+        })
+
+    } catch(error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Error in updating todo"
+        })
+    }
+}
+
+
+
+//update todo checked
+exports.updateTodoChecked = async(req, res) => {
+    try {
+        const {checked, todoId} = req.body;
+
+        if(!todoId) {
+            res.status(403).json({
+                success: false,
+                message: "todo-id is missing"
+            })
+        }
+
+        // find respective todo on basis of todo id and update its title and get the new updated field in response
+        const updatedTodo = await Todo.findOneAndUpdate(
+            {todoId: todoId}, 
+            {
+                checked: checked,
+            },
+            {
+                new: true,
+            }
+        );
+
+        if(!updatedTodo) {
+            return res.status(404).json({
+                success: false,
+                message: "Todo with speicified id does not exist. Please enter valid id!"
+            })
+        }
+
+        console.log("Updated todo is: ", updatedTodo);
+
+        // sending successful reposne
+        return res.status(200).json({
+            success: true,
+            message: "Updated todo checked",
             updatedTodo: updatedTodo
         })
 

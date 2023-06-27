@@ -113,14 +113,12 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
                 // making a backend call to update todo checked prop every time todo is checked or unchecked
                 const updatedTitle = editedLabel.textContent;
-                const checked = editedLabel.parentNode.children[0].checked;
                 const todoId = editedLabel.parentNode.children[0].id;
                 const updateTodoRequest = JSON.stringify({
                     updatedTitle,
                     todoId,
-                    checked
                 });
-                const response  =backendCall("updateTodo", "PUT", updateTodoRequest);
+                const response  =backendCall("updateTodoTitle", "PUT", updateTodoRequest);
 
                 // enabling pencil button once user presses enter key that is once user is done editing the title of to-do
                 event.target.disabled = false;
@@ -199,16 +197,14 @@ async function appendItemToList(id, todoTitle, checked) {
         currLabelText.style.textDecoration = "none";
 
         // making a backend call to update todo checked prop every time todo is checked or unchecked
-        const updatedTitle = currLabelText.textContent;
         const checked = currentCheckBox.checked;
         const todoId = currentCheckBox.id;
 
         const updateTodoRequest = JSON.stringify({
-            updatedTitle,
             todoId,
             checked
         });
-        const response  =backendCall("updateTodo", "PUT", updateTodoRequest);
+        const response  =backendCall("updateTodoChecked", "PUT", updateTodoRequest);
     })
 
     // making a request into the backend to create a todo
