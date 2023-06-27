@@ -9,6 +9,26 @@ const emptyErrorMessage = document.querySelector('.emptyErrorMessage');
 
 let numberOfTodos = 0;
 
+// checking if any todos already exists in db or not , if yes, fetch and load them initially
+async function init() {
+    // fetching all the todos from the Db, if there are any
+    const response = await fetch('http://localhost:4000/api/v1/getAllTodos', {method: 'GET'});
+    // if we get something in response (that is if any todos are available)
+    if(response.status === 200) {
+        const data = await response.json();
+        const allTodos = data.data;
+
+        // load each todo fetched from the Db onto UI
+        if(allTodos && allTodos.length > 0) {
+            for (const todo of allTodos) {
+                appendItemToList(todo.todoId, todo.title, todo.checked);
+            }
+        }  
+    }
+}
+init();
+
+
 // opening the modal as soon as the user clicks on 'add-items' button
 function openModal() {
     modal.classList.add('active');
@@ -23,6 +43,24 @@ function closeModal() {
     modal.classList.remove('active');
     return;
 }
+
+
+
+// resuable function to make backend calls
+async function backendCall(endPoint, method, requestBody) {
+    const response = await fetch(`http://localhost:4000/api/v1/${endPoint}` ,
+    {
+        method: `${method}`,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: `${requestBody}`
+    })
+
+    return response;
+}
+
+
 
 
 // function to add update and delete buttons into each todo item
@@ -40,7 +78,6 @@ function addUpdateAndDeleteButtons(parentDiv) {
     // and when the user presses enter, this input is again replaced by label with input's value as its textContent
     updateBtn.addEventListener('click',  (event)=>{
         // disabling button and img after user clicked edit once
-        console.log(event);
         event.target.disabled = true;
         // event.target.parentNode.disabled = true;
 
@@ -91,7 +128,6 @@ function addUpdateAndDeleteButtons(parentDiv) {
                     },
                     body: updateTodoRequest,
                 })
-                console.log("Updated todo after updating the title is: ", response.json());
 
                 // enabling pencil button once user presses enter key that is once user is done editing the title of to-do
                 event.target.disabled = false;
@@ -124,6 +160,8 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
       //removing current todo from the list on the front end
         event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
+
+        numberOfTodos--;
     })
 
     parentDiv.appendChild(buttonsContainer);
@@ -131,10 +169,11 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
 
 
+
 // function to append new todo item into the list container
-async function appendItemToList() {
+async function appendItemToList(id, todoTitle, checked) {
     // if no title is given to todo display an error popup
-    if(addItemInputField.value === "") {
+    if(!todoTitle && addItemInputField.value === "") {
         closeModal();
         emptyErrorMessage.classList.add("show");
         setTimeout(() => {
@@ -147,20 +186,21 @@ async function appendItemToList() {
     // create a div having input[type="checkbox"] and a label associated with that input and append it to this div
     const parentDiv = document.createElement('div');
     parentDiv.classList.add('parentDiv');
-    parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox' id= todo${numberOfTodos} />
-    <label for=todo${numberOfTodos}>${addItemInputField.value}</label></div>`
+    numberOfTodos++; 
+    parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox' id= ${id? id : `todo${numberOfTodos}`} />
+    <label for=${id? id : `todo${numberOfTodos}`}>${todoTitle? todoTitle : `${addItemInputField.value}`}</label></div>`
 
     // append the div  into the list container
     listContainer.appendChild(parentDiv);    
 
-    numberOfTodos++;    
+    // numberOfTodos++;    
 
    addUpdateAndDeleteButtons(parentDiv);
     
    //todo: discuss adding inputs on checkbox
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
     // parentDiv.children[0].children[0].addEventListener('change', (event)=> {
-    const currentCheckBox = document.getElementById(`todo${numberOfTodos-1}`);
+    const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
     currentCheckBox.addEventListener('change', async (event)=> {
         const currLabelText = event.target.parentNode.children[1];
         if (event.target.checked) {
@@ -188,31 +228,32 @@ async function appendItemToList() {
             },
             body: updateTodoRequest,
         })
-        console.log("Updated todo is: ", response.json());
     })
 
     // making a request into the backend to create a todo
-    console.log("Making a backend request")
-    const title = parentDiv.children[0].children[1].textContent;
-    const todoId = `todo${numberOfTodos-1}`
-    const createTodoRequest = JSON.stringify({
-        title,
-        todoId
-    });
-
-    const response  =await fetch('http://localhost:4000/api/v1/addTodo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: createTodoRequest,
-      })
-
-      console.log(response.json());
+    if(!todoTitle) {
+        const title = parentDiv.children[0].children[1].textContent;
+        const todoId = `todo${numberOfTodos}`
+        const createTodoRequest = JSON.stringify({
+            title,
+            todoId
+        });
+    
+        const response  =await fetch('http://localhost:4000/api/v1/addTodo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: createTodoRequest,
+          })
+    }
 
     // after adding a new todo close the modal
     closeModal();  
 }
+
+
+
 
 
 // adding event listeners
