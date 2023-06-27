@@ -115,19 +115,12 @@ function addUpdateAndDeleteButtons(parentDiv) {
                 const updatedTitle = editedLabel.textContent;
                 const checked = editedLabel.parentNode.children[0].checked;
                 const todoId = editedLabel.parentNode.children[0].id;
-
                 const updateTodoRequest = JSON.stringify({
                     updatedTitle,
                     todoId,
                     checked
                 });
-                const response  =await fetch('http://localhost:4000/api/v1/updateTodo', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: updateTodoRequest,
-                })
+                const response  =backendCall("updateTodo", "PUT", updateTodoRequest);
 
                 // enabling pencil button once user presses enter key that is once user is done editing the title of to-do
                 event.target.disabled = false;
@@ -150,13 +143,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
         // making a backend call to delete current todo from the database
         const todoId = event.target.parentNode.parentNode.children[0].children[0].id;
         const deleteTodoRequest = JSON.stringify({todoId});
-        const response  =await fetch('http://localhost:4000/api/v1/deleteTodo', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: deleteTodoRequest,
-      })
+        const response  =backendCall("deleteTodo", "DELETE", deleteTodoRequest);
 
       //removing current todo from the list on the front end
         event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
@@ -221,13 +208,7 @@ async function appendItemToList(id, todoTitle, checked) {
             todoId,
             checked
         });
-        const response  =await fetch('http://localhost:4000/api/v1/updateTodo', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: updateTodoRequest,
-        })
+        const response  =backendCall("updateTodo", "PUT", updateTodoRequest);
     })
 
     // making a request into the backend to create a todo
@@ -238,14 +219,7 @@ async function appendItemToList(id, todoTitle, checked) {
             title,
             todoId
         });
-    
-        const response  =await fetch('http://localhost:4000/api/v1/addTodo', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: createTodoRequest,
-          })
+        const response  =backendCall("addTodo", "POST", createTodoRequest);
     }
 
     // after adding a new todo close the modal
