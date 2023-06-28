@@ -155,8 +155,23 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
 
 
+// function to style label associated with current checkbox
+function setLabelStyles(isCheckBoxChecked, labelToBeStyles) {
+    if(isCheckBoxChecked) {
+        labelToBeStyles.style.textDecoration = "line-through";
+        labelToBeStyles.style.textDecorationColor = "#FF5733";
+        labelToBeStyles.style.textDecorationStyle = "double";
+    }
+    else
+        labelToBeStyles.style.textDecoration = "none";
+}
+
+
+
+
+
 // function to append new todo item into the list container
-async function appendItemToList(id, todoTitle, checked) {
+async function appendItemToList(id, todoTitle, ischecked) {
     // if no title is given to todo display an error popup
     if(!todoTitle && addItemInputField.value === "") {
         closeModal();
@@ -168,33 +183,32 @@ async function appendItemToList(id, todoTitle, checked) {
         return;
     }
 
-    // create a div having input[type="checkbox"] and a label associated with that input and append it to this div
+    // create a parent div having input[type="checkbox"] and a label associated with that input and delete and update button and append it to this div
     const parentDiv = document.createElement('div');
     parentDiv.classList.add('parentDiv');
     numberOfTodos++; 
-    parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox' id= ${id? id : `todo${numberOfTodos}`} />
+    parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox'  id= ${id? id : `todo${numberOfTodos}`} />
     <label for=${id? id : `todo${numberOfTodos}`}>${todoTitle? todoTitle : `${addItemInputField.value}`}</label></div>`
 
-    // append the div  into the list container
-    listContainer.appendChild(parentDiv);    
+    // append the parent div  into the list container
+    listContainer.appendChild(parentDiv);   
 
-    // numberOfTodos++;    
-
+    // adding update and delete buttons to parentDiv
    addUpdateAndDeleteButtons(parentDiv);
     
-   //todo: discuss adding inputs on checkbox
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
-    // parentDiv.children[0].children[0].addEventListener('change', (event)=> {
     const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
+    // if current todo is checked (in db if checked is true) then set its checked to true and apply css to its label
+    if(ischecked) {
+        currentCheckBox.checked = true;
+    }
+
+    setLabelStyles(currentCheckBox.checked , currentCheckBox.parentNode.children[1]);
+
+    // adding onchange event listener to the current checkbox, such that whenever it is changed the style of label also changes and a Db call is made to update checked/unchecked state
     currentCheckBox.addEventListener('change', async (event)=> {
         const currLabelText = event.target.parentNode.children[1];
-        if (event.target.checked) {
-            currLabelText.style.textDecoration = "line-through";
-            currLabelText.style.textDecorationColor = "#FF5733";
-            currLabelText.style.textDecorationStyle = "double";
-        }
-        else
-        currLabelText.style.textDecoration = "none";
+        setLabelStyles(currentCheckBox.checked , currLabelText);
 
         // making a backend call to update todo checked prop every time todo is checked or unchecked
         const checked = currentCheckBox.checked;
@@ -207,7 +221,7 @@ async function appendItemToList(id, todoTitle, checked) {
         const response  =backendCall("updateTodoChecked", "PUT", updateTodoRequest);
     })
 
-    // making a request into the backend to create a todo
+    // making a request into the backend to create a new todo if title received in the function argument list doesn't exist
     if(!todoTitle) {
         const title = parentDiv.children[0].children[1].textContent;
         const todoId = `todo${numberOfTodos}`
@@ -215,7 +229,7 @@ async function appendItemToList(id, todoTitle, checked) {
             title,
             todoId
         });
-        const response  =backendCall("addTodo", "POST", createTodoRequest);
+        const response  = backendCall("addTodo", "POST", createTodoRequest);
     }
 
     // after adding a new todo close the modal
