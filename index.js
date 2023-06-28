@@ -156,14 +156,17 @@ function addUpdateAndDeleteButtons(parentDiv) {
 
 
 // function to style label associated with current checkbox
-function setLabelStyles(isCheckBoxChecked, labelToBeStyles) {
+function setLabelStyles(isCheckBoxChecked, labelToBeStyled) {
     if(isCheckBoxChecked) {
-        labelToBeStyles.style.textDecoration = "line-through";
-        labelToBeStyles.style.textDecorationColor = "#FF5733";
-        labelToBeStyles.style.textDecorationStyle = "double";
+        labelToBeStyled.style.textDecoration = "line-through";
+        labelToBeStyled.style.textDecorationColor = "#FF5733";
+        labelToBeStyled.style.textDecorationStyle = "single";
+        labelToBeStyled.style.color = "#cccccc";
     }
-    else
-        labelToBeStyles.style.textDecoration = "none";
+    else {
+        labelToBeStyled.style.textDecoration = "none";
+        labelToBeStyled.style.color = "#ffffff";
+    }
 }
 
 
