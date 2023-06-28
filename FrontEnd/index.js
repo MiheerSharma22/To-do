@@ -71,7 +71,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
     // creating the update button and setting its listeners
     const updateBtn = document.createElement('button');
     updateBtn.setAttribute('class', 'updateBtn');
-    updateBtn.innerHTML = `<img src='./assets/updateIcon.png' width=25 height=30/>`;
+    updateBtn.innerHTML = `<img src='./assets/updateIcon.png' alt='update' width=25 height=30/>`;
 
     //adding update functionality upon clicking pencil icon
     // Approach -> as soon user clicks on pencil the label in that todo is replaced with an input tag with value same as that of label's textContent
@@ -132,7 +132,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
     // creating the delete button and setting listeners on it
     const deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class', 'deleteBtn');
-    deleteBtn.innerHTML = `<img src="./assets/deleteIcon.png" width=25 height=30/>`;
+    deleteBtn.innerHTML = `<img src="./assets/deleteIcon.png" alt='delete' width=25 height=30/>`;
     buttonsContainer.appendChild(deleteBtn);
     buttonsContainer.appendChild(updateBtn);
 
