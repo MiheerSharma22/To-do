@@ -147,7 +147,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
       //removing current todo from the list on the front end
         event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
 
-        numberOfTodos--;
+        // numberOfTodos--;
     })
 
     parentDiv.appendChild(buttonsContainer);
