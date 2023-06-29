@@ -12,7 +12,7 @@ let numberOfTodos = 0;
 // checking if any todos already exists in db or not , if yes, fetch and load them initially
 async function init() {
     // fetching all the todos from the Db, if there are any
-    const response = await fetch('http://localhost:4000/api/v1/getAllTodos', {method: 'GET'});
+    const response = await fetch('https://https://to-do-backend-server.vercel.app/api/v1/getAllTodos', {method: 'GET'});
     // if we get something in response (that is if any todos are available)
     if(response.status === 200) {
         const data = await response.json();
@@ -48,7 +48,7 @@ function closeModal() {
 
 // resuable function to make backend calls
 async function backendCall(endPoint, method, requestBody) {
-    const response = await fetch(`http://localhost:4000/api/v1/${endPoint}` ,
+    const response = await fetch(`https://https://to-do-backend-server.vercel.app/api/v1/${endPoint}` ,
     {
         method: `${method}`,
         headers: {
