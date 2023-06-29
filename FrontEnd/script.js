@@ -23,7 +23,7 @@ async function init() {
         if(allTodos && allTodos.length > 0) {
             for (const todo of allTodos) {
                 appendItemToList(todo.todoId, todo.title, todo.checked);
-                if(todo === alltodos[alltodos.length-1])
+                if(todo === allTodos[allTodos.length-1])
                     numberOfTodos = Number(todo.todoID);
             }
         }  
