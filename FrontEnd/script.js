@@ -203,7 +203,8 @@ async function appendItemToList(id, todoTitle, ischecked) {
    addUpdateAndDeleteButtons(parentDiv);
     
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
-    const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
+    // const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
+    const currentCheckBox = parentDiv.children[0].children[0];
     // if current todo is checked (in db if checked is true) then set its checked to true and apply css to its label
     if(ischecked) {
         currentCheckBox.checked = true;
