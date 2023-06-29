@@ -16,7 +16,7 @@ app.use(express.json());
 // adding cors middleware to facilitate communication between server(backend) and client(frontend) via requests and responses
 app.use(
     cors ({
-        origin: "https://to-do-front-end-seven.vercel.app/",           // front end path(url) from where the request will be made to the backend or server
+        origin: "https://to-do-front-end-seven.vercel.app",           // front end path(url) from where the request will be made to the backend or server
         credentials: true
     })
 )
