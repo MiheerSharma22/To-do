@@ -24,7 +24,7 @@ async function init() {
             for (const todo of allTodos) {
                 appendItemToList(todo.todoId, todo.title, todo.checked);
                 if(todo === allTodos[allTodos.length-1])
-                    numberOfTodos = Number(todo.todoID);
+                    numberOfTodos = parseInt(todo.todoId.substring(4));
             }
         }  
     }
