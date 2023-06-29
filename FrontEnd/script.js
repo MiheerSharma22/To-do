@@ -194,6 +194,8 @@ async function appendItemToList(id, todoTitle, ischecked) {
     parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox'  id= ${id? id : `todo${numberOfTodos}`} />
     <label for=${id? id : `todo${numberOfTodos}`}>${todoTitle? todoTitle : `${addItemInputField.value}`}</label></div>`
 
+    console.log("Parent div is: " , parentDiv);
+
     // append the parent div  into the list container
     listContainer.appendChild(parentDiv);   
 
