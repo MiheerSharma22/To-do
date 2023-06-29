@@ -15,7 +15,7 @@ async function init() {
     const response = await fetch('https://to-do-backend-server.vercel.app/api/v1/getAllTodos', {method: 'GET'});
     // if we get something in response (that is if any todos are available)
     console.log(response);
-    if(response.ok) {
+    if(response.status === 200) {
         const data = await response.json();
         const allTodos = data.data;
 
