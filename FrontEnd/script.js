@@ -24,11 +24,8 @@ async function init() {
             for (const todo of allTodos) {
                 console.log(todo.todoId.substring(4));
                 appendItemToList(todo.todoId, todo.title, todo.checked);
-                if(todo === allTodos[allTodos.length-2]) {
+                if(todo === allTodos[allTodos.length-1])
                     numberOfTodos = parseInt(todo.todoId.substring(4));
-                    console.log("number: ",numberOfTodos);
-                }
-                    
             }
         }  
     }
@@ -153,7 +150,7 @@ function addUpdateAndDeleteButtons(parentDiv) {
       //removing current todo from the list on the front end
         event.target.parentNode.parentNode.remove(event.target.parentNode.parentnode);
 
-        numberOfTodos--;
+        // numberOfTodos--;
     })
 
     parentDiv.appendChild(buttonsContainer);
@@ -200,6 +197,8 @@ async function appendItemToList(id, todoTitle, ischecked) {
     parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox'  id= ${id? id : `todo${numberOfTodos}`} />
     <label for=${id? id : `todo${numberOfTodos}`}>${todoTitle? todoTitle : `${addItemInputField.value}`}</label></div>`
 
+    console.log("Parent div is: " , parentDiv);
+
     // append the parent div  into the list container
     listContainer.appendChild(parentDiv);   
 
@@ -207,7 +206,8 @@ async function appendItemToList(id, todoTitle, ischecked) {
    addUpdateAndDeleteButtons(parentDiv);
     
     // adding event listener to checkbox, if checked add the strike trhough to the label, else remove it 
-    const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
+    // const currentCheckBox = document.getElementById(`todo${numberOfTodos}`);
+    const currentCheckBox = parentDiv.children[0].children[0];
     // if current todo is checked (in db if checked is true) then set its checked to true and apply css to its label
     if(ischecked) {
         currentCheckBox.checked = true;
