@@ -206,7 +206,7 @@ label {
     transition-duration: 0.2s;
 }
 
-.add {
+.add, .loginButton {
     width: fit-content;
     padding: 0.7rem 2rem;
     background: linear-gradient(90deg, rgba(189,37,37,1) 5%, rgba(210,39,39,1) 100%);
@@ -218,7 +218,7 @@ label {
     margin-top: 0.75rem;
 }
 
-.add:hover{
+.add:hover, .loginButton:hover{
     outline: 1px solid rgba(189,37,37,1);
     color: rgba(189,37,37,1);
     background: transparent;
@@ -228,6 +228,75 @@ label {
 .active {
     display: flex;
 }
+
+
+
+
+/* login and signup page */
+.container {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+
+.container p {
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgb(225, 32, 32);
+    text-align: center;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 50%;
+}
+
+form input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0.3rem;
+    color: rgb(225, 32, 32);
+    font-size: 1.3rem;
+}
+
+
+form input:focus {
+    border-bottom: 1px solid rgb(225, 32, 32);
+    /* transition: all;
+    transition-delay: 50ms; */
+}
+
+.loginButton {
+    place-self: center;
+}
+
+.nameContainer {
+    display: flex;
+    justify-content: space-between;
+}
+.nameContainer .fName,
+.nameContainer .lName {
+    width: 47%;
+}
+
+a {
+    color: #ccc
+}
+a:hover {
+    color:#FF5733;
+    transition: all 0.2s linear;
+}
+
+
+
+
 
 @media (max-width: 1024px) {
     .addItems {
