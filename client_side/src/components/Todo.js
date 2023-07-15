@@ -13,8 +13,8 @@ const Todo = (props) => {
   function handleUpdate(event) {
     if (event.key === "Enter") {
       // make a backend call to update title in DB
-      const updatedTitle = todoTitle;
-      const todoId = event.target.parentNode.children[0].id;
+      const updatedTitle = event.target.value;
+      const todoId = props.id;
       const updateTodoRequest = JSON.stringify({
         updatedTitle,
         todoId,
@@ -29,8 +29,7 @@ const Todo = (props) => {
 
   // delete button handler
   function handleDelete(event) {
-    const todoId =
-      event.target.parentNode.parentNode.children[0].children[0].id;
+    const todoId = props.id;
     const deleteTodoRequest = JSON.stringify({ todoId });
     deleteTodo(deleteTodoRequest);
 
@@ -49,12 +48,14 @@ const Todo = (props) => {
           id={props.id}
           className=""
           onChange={() => setChecked(!checked)}
+          // todo: checked = ?
         />
         {!update ? (
           <label
             htmlFor={props.id}
             className={`text-[1.2rem] cursor-pointer ${
-              checked ? "setLineThrough text-[#ccc]" : ""
+              checked &&
+              "line-through decoration-[#ff5733] decoration-solid text-[#ccc]"
             }`}
           >
             {todoTitle}
