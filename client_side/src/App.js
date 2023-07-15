@@ -1,11 +1,15 @@
 import TodoListContainer from "./components/TodoListContainer";
 import { useSelector, useDispatch } from "react-redux";
+import { displayModal } from "./redux/slices/ShowModal";
+import CreateTodoModal from "./components/CreateTodoModal";
 
 function App() {
-  const showModal = useSelector((state) => state.showModal.showModal);
   const dispatch = useDispatch();
+  const showModal = useSelector((state) => state.showModal.showModal);
 
-  function handleShowModal() {}
+  function handleShowModal() {
+    dispatch(displayModal());
+  }
 
   return (
     // todo: delete custom id
@@ -21,6 +25,8 @@ function App() {
       >
         Add Items
       </button>
+      
+      <CreateTodoModal />
     </div>
   );
 }

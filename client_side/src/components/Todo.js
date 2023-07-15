@@ -28,15 +28,13 @@ const Todo = (props) => {
   }
 
   // delete button handler
-  function handleDelete(event) {
+  function handleDelete() {
     const todoId = props.id;
     const deleteTodoRequest = JSON.stringify({ todoId });
     deleteTodo(deleteTodoRequest);
 
     // remove this item from todo Container
-    event.target.parentNode.parentNode.parentNode.removeChild(
-      event.target.parentNode.parentNode
-    );
+    props.handleDelete(todoId);
   }
 
   return (

@@ -5,7 +5,7 @@ export const ShowModal = createSlice({
   name: "showModal",
   initialState,
   reducers: {
-    showModal: (state) => {
+    displayModal: (state) => {
       state.showModal = true;
     },
     hideModal: (state) => {
@@ -14,5 +14,5 @@ export const ShowModal = createSlice({
   },
 });
 
-export const { showModal, hideModal } = ShowModal.actions;
+export const { displayModal, hideModal } = ShowModal.actions;
 export default ShowModal.reducer;

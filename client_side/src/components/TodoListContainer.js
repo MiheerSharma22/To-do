@@ -2,14 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Todo from "./Todo";
 import Spinner from "./Spinner";
-// import { useSelector, useDispatch } from "react-redux";
-// import { updateByANumber } from "../redux/slices/NumberOfTodos";
 import fetchTodo from "../service-calls/fetchTodo";
 
 const TodoListContainer = () => {
   const [loading, setLoading] = useState(false);
-  //   const number = useSelector((state) => state.numberOfTodos.value);
-  //   const dispatch = useDispatch();
   const [allTodos, setAllTodos] = useState([]);
 
   async function init() {
@@ -23,9 +19,6 @@ const TodoListContainer = () => {
     if (response.status === 200) {
       const data = await response.json();
       setAllTodos(data.data);
-      //   if (data.data.length > 0) {
-      //     dispatch(updateByANumber(data.data.length));
-      //   }
     }
 
     // setting loading to false
@@ -35,6 +28,11 @@ const TodoListContainer = () => {
   useEffect(() => {
     init();
   }, []);
+
+  const deleteTodo = (todoId) => {
+    const newList = allTodos.filter((todo) => todo.todoId !== todoId);
+    setAllTodos(newList);
+  };
 
   return (
     <div className="w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[2rem] flex flex-col relative">
@@ -48,7 +46,12 @@ const TodoListContainer = () => {
         <Spinner />
       ) : allTodos.length > 0 ? (
         allTodos.map((todo) => (
-          <Todo key={todo._id} id={todo.todoId} title={todo.title} />
+          <Todo
+            key={todo._id}
+            id={todo.todoId}
+            title={todo.title}
+            handleDelete={deleteTodo}
+          />
         ))
       ) : (
         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] text-[2rem]">
