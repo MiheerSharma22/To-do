@@ -1,4 +1,6 @@
-const User = require('../models/User')
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 // login handler
 
@@ -27,6 +29,22 @@ exports.signUp = async(req,res) => {
                 message: "Email already exists"
             })
         }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // if everything is fine create an entry of the new user into Db
+        const newUser = await User.create({
+            fName: fName,
+            lName: lName,
+            email: email,
+            password: hashedPassword
+        })
+
+        // successfull response
+        return res.status(200).json({
+            success: true,
+            message: "User Registered"
+        })
 
     } catch(error) {
         console.error("Error in signup: ",error);

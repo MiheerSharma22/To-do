@@ -206,7 +206,7 @@ label {
     transition-duration: 0.2s;
 }
 
-.add, .loginButton {
+.add, .loginButton, .signUpButton {
     width: fit-content;
     padding: 0.7rem 2rem;
     background: linear-gradient(90deg, rgba(189,37,37,1) 5%, rgba(210,39,39,1) 100%);
@@ -273,7 +273,8 @@ form input:focus {
     transition-delay: 50ms; */
 }
 
-.loginButton {
+.loginButton,
+.signUpButton {
     place-self: center;
 }
 

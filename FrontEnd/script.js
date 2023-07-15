@@ -7,6 +7,8 @@ const closeModalButton = document.querySelector('.closeModal');
 const addButton = document.querySelector('.add');
 const emptyErrorMessage = document.querySelector('.emptyErrorMessage');
 
+const signUpButton = document.querySelector('.signUpButton');
+
 let numberOfTodos = 0;
 
 // checking if any todos already exists in db or not , if yes, fetch and load them initially
@@ -14,7 +16,6 @@ async function init() {
     // fetching all the todos from the Db, if there are any
     const response = await fetch('http://localhost:4000/api/v1/getAllTodos', {method: 'GET'});
     // if we get something in response (that is if any todos are available)
-    console.log(response);
     if(response.status === 200) {
         const data = await response.json();
         const allTodos = data.data;
@@ -22,7 +23,6 @@ async function init() {
         // load each todo fetched from the Db onto UI
         if(allTodos && allTodos.length > 0) {
             for (const todo of allTodos) {
-                console.log(todo.todoId.substring(4));
                 appendItemToList(todo.todoId, todo.title, todo.checked);
                 if(todo === allTodos[allTodos.length-1])
                     numberOfTodos = parseInt(todo.todoId.substring(4));
@@ -197,8 +197,6 @@ async function appendItemToList(id, todoTitle, ischecked) {
     parentDiv.innerHTML = `<div class='checkbox-container'><input type='checkbox'  id= ${id? id : `todo${numberOfTodos}`} />
     <label for=${id? id : `todo${numberOfTodos}`}>${todoTitle? todoTitle : `${addItemInputField.value}`}</label></div>`
 
-    console.log("Parent div is: " , parentDiv);
-
     // append the parent div  into the list container
     listContainer.appendChild(parentDiv);   
 
@@ -249,6 +247,31 @@ async function appendItemToList(id, todoTitle, ischecked) {
 
 
 
+// signup form submission handler
+async function handleSignUpFormSubmission(event) {
+    console.log("inside handler function of sign up form")
+    event.preventDefault();
+
+    const fname = document.querySelector('.fName').value;
+    const lname = document.querySelector('.lName').value;
+    const email = document.querySelector('.signupEmail').value;
+    const pass = document.querySelector('.signUpPassword').value;
+
+    console.log(fname)
+    
+    const signupRequest = {
+        fName: fname,
+        lName: lname,
+        email: email,
+        password: pass,
+    }     
+
+    const signupRespomnse = await backendCall("signUp", "POST", signupRequest);
+    console.log("signupRespomnse: ", signupRespomnse)
+}
+
+
+
 
 // adding event listeners
 addItemInputField.addEventListener("keydown", (event)=>{
@@ -261,3 +284,6 @@ closeModalButton.addEventListener('click', closeModal);
 addButton.addEventListener('click', appendItemToList);
 // adding listener to label container so that clicking on it wouldn't close the modal
 labelContainer.addEventListener('click', (event)=> event.stopPropagation());
+
+// const singupForm = document.querySelector('.signupForm');
+// singupForm.addEventListener('submit', handleSignUpFormSubmission)

@@ -1,9 +1,10 @@
 const Todo = require('../models/Todo');
+const User = require('../models/User');
 
 // add to-do
 exports.addTodo = async(req,res) => {
     try {
-        const {title, checked, todoId} = req.body;
+        const {title, checked, todoId, email} = req.body;
 
         // handling empty title
         if(!title, !todoId) {
@@ -20,6 +21,17 @@ exports.addTodo = async(req,res) => {
             todoId: todoId
         });
         console.log(createToDo);
+
+        // adding this todo db id into loggedIn user's todos array
+        const pushTodo = await User.findOneAndUpdate(
+            {email: email},
+            {
+                $push: {
+                    todos: createToDo._id
+                }
+            },
+            {new: true}
+        );
 
         // sendin successful reponse
         return res.status(200).json({
@@ -141,7 +153,7 @@ exports.updateTodoChecked = async(req, res) => {
 // delete todo
 exports.deleteTodo = async(req, res) => {
     try{
-        const {todoId} = req.body;
+        const {todoId, email} = req.body;
 
         if(!todoId) {
             return res.status(403).json({
@@ -149,6 +161,18 @@ exports.deleteTodo = async(req, res) => {
                 message: "Invalid todo id"
             })
         }
+
+        const currentTodoToBeDeleted = await Todo.findOne({todoId: todoId});
+
+        // delete todo db id from user's todos array 
+        await User.findOneAndUpdate(
+            {email: email},
+            {
+                $pull : {
+                    todos: currentTodoToBeDeleted._id
+                }
+            }
+        )
 
         await Todo.findOneAndDelete({todoId: todoId});
 

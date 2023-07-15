@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  min-width: 20px;
+  min-height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+input[type="checkbox"]:checked::after {
+  position: absolute;
+  content: "✓";
+  color: #ff5733;
+  font-size: 1.3rem;
+  font-weight: bold;
+  bottom: -5px;
+}
+
+.setLineThrough {
+  text-decoration: line-through;
+  text-decoration-color: #ff5733;
+  text-decoration-line: "single";
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #474bff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+  animation: spinner-zp9dbg 1s infinite linear;
+}
+
+@keyframes spinner-zp9dbg {
+  to {
+    transform: rotate(1turn);
+  }
+}
