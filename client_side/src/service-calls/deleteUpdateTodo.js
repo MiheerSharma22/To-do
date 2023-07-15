@@ -13,7 +13,7 @@ const deleteTodo = async (requestBody) => {
 };
 
 const updateTodo = async (requestBody) => {
-  const response = await fetch(`${URL}/updateTodo`, {
+  const response = await fetch(`${URL}/updateTodoTitle`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
