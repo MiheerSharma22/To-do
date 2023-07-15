@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import NumberOfTodos from "./slices/NumberOfTodos";
+import ShowModal from "./slices/ShowModal";
 
 export const store = configureStore({
-    reducer: {
-        numberOfTodos: NumberOfTodos
-    }
-})
+  reducer: {
+    showModal: ShowModal,
+  },
+});

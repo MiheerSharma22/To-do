@@ -27,12 +27,6 @@ input[type="checkbox"]:checked::after {
   bottom: -5px;
 }
 
-.setLineThrough {
-  text-decoration: line-through;
-  text-decoration-color: #ff5733;
-  text-decoration-line: "single";
-}
-
 .spinner {
   width: 56px;
   height: 56px;
