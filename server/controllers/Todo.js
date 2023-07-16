@@ -23,20 +23,21 @@ exports.addTodo = async (req, res) => {
     console.log(createToDo);
 
     // adding this todo db id into loggedIn user's todos array
-    const pushTodo = await User.findOneAndUpdate(
-      { email: email },
-      {
-        $push: {
-          todos: createToDo._id,
-        },
-      },
-      { new: true }
-    );
+    // const pushTodo = await User.findOneAndUpdate(
+    //   { email: email },
+    //   {
+    //     $push: {
+    //       todos: createToDo._id,
+    //     },
+    //   },
+    //   { new: true }
+    // );
 
     // sending successful reponse
     return res.status(200).json({
-      succes: true,
+      success: true,
       message: "Todo added successfully",
+      data: createToDo._id,
     });
   } catch (error) {
     console.error(error);
@@ -80,7 +81,7 @@ exports.updateTodoTitle = async (req, res) => {
 
     console.log("Updated todo is: ", updatedTodo);
 
-    // sending successful reposne
+    // sending successful response
     return res.status(200).json({
       success: true,
       message: "Updated todo title",

@@ -14,7 +14,7 @@ function App() {
   return (
     // todo: delete custom id
     // todo: destructure in map
-    <div className="bg-black text-white min-w-screen min-h-screen flex justify-center items-center relative py-[3rem]">
+    <div className="bg-black text-white min-w-screen min-h-screen flex justify-center items-center relative py-[3rem] overflow-x-hidden">
       {/* todo list container */}
       <TodoListContainer />
 
@@ -25,8 +25,8 @@ function App() {
       >
         Add Items
       </button>
-      
-      <CreateTodoModal />
+
+      {showModal && <CreateTodoModal />}
     </div>
   );
 }
