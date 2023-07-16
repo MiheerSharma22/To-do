@@ -14,7 +14,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // adding cors middleware to facilitate communication between server(backend) and client(frontend) via requests and responses
-const allowedOrigins = ["http://127.0.0.1:5500", "http://localhost:3000"];
+const allowedOrigins = [
+  "http://127.0.0.1:5500",
+  "http://localhost:3000",
+  "https://to-do-frontend-psi.vercel.app",
+];
 app.use(
   cors({
     origin: allowedOrigins, // front end path(url) from where the request will be made to the backend or server
