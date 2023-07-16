@@ -12,7 +12,6 @@ const Todo = (props) => {
   const [todoTitle, setTodoTitle] = useState(props.title);
   const [update, setUpdate] = useState(false);
   const [checked, setChecked] = useState(props.checked);
-  // console.log("checked at start: ", checked);
 
   // update button handler
   function handleUpdate(event) {
@@ -43,16 +42,14 @@ const Todo = (props) => {
   }
 
   // checked change handler
-  function handleCheckedChange() {
-    // console.log("inside checked change handler function");
+  function handleCheckedChange(event) {
     setChecked(!checked);
-    // console.log("checked :", checked);
 
     const updateTodoCheckedBody = JSON.stringify({
-      checked: checked,
+      checked: event.target.checked,
       todoId: props.id,
     });
-    console.log(updateTodoCheckedBody);
+
     updateTodoChecked(updateTodoCheckedBody);
   }
 

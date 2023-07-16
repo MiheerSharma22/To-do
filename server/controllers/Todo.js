@@ -97,7 +97,7 @@ exports.updateTodoChecked = async (req, res) => {
   try {
     const { checked, todoId } = req.body;
 
-    if ((!todoId, !checked)) {
+    if (!todoId) {
       res.status(401).json({
         success: false,
         message: "todo-id is missing",

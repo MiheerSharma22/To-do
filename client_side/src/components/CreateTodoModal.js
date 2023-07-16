@@ -8,6 +8,7 @@ const CreateTodoModal = ({ setAllTodos }) => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
+  // function to handle new added todo into DB and updating allTodos array by pushing it into the array
   async function handleAddTodo(event) {
     const createTodoRequest = JSON.stringify({
       title: title,
