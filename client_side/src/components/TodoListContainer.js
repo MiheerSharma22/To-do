@@ -4,9 +4,8 @@ import Todo from "./Todo";
 import Spinner from "./Spinner";
 import fetchTodo from "../service-calls/fetchTodo";
 
-const TodoListContainer = () => {
+const TodoListContainer = ({ allTodos, setAllTodos }) => {
   const [loading, setLoading] = useState(false);
-  const [allTodos, setAllTodos] = useState([]);
 
   async function init() {
     // setting loading to true
@@ -30,7 +29,7 @@ const TodoListContainer = () => {
   }, []);
 
   const deleteTodo = (todoId) => {
-    const newList = allTodos.filter((todo) => todo.todoId !== todoId);
+    const newList = allTodos.filter((todo) => todo._id !== todoId);
     setAllTodos(newList);
   };
 
@@ -45,12 +44,13 @@ const TodoListContainer = () => {
       {loading ? (
         <Spinner />
       ) : allTodos.length > 0 ? (
-        allTodos.map((todo) => (
+        allTodos.map((todo, index) => (
           <Todo
             key={todo._id}
-            id={todo.todoId}
+            id={todo._id}
             title={todo.title}
-            handleDelete={deleteTodo}
+            handleDeleteTodo={deleteTodo}
+            checked={todo.checked}
           />
         ))
       ) : (

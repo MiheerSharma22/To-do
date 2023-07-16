@@ -2,21 +2,21 @@ import TodoListContainer from "./components/TodoListContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { displayModal } from "./redux/slices/ShowModal";
 import CreateTodoModal from "./components/CreateTodoModal";
+import { useState } from "react";
 
 function App() {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.showModal.showModal);
+  const [allTodos, setAllTodos] = useState([]);
 
   function handleShowModal() {
     dispatch(displayModal());
   }
 
   return (
-    // todo: delete custom id
-    // todo: destructure in map
     <div className="bg-black text-white min-w-screen min-h-screen flex justify-center items-center relative py-[3rem] overflow-x-hidden">
       {/* todo list container */}
-      <TodoListContainer />
+      <TodoListContainer allTodos={allTodos} setAllTodos={setAllTodos} />
 
       {/* add Items button */}
       <button
@@ -26,7 +26,7 @@ function App() {
         Add Items
       </button>
 
-      {showModal && <CreateTodoModal />}
+      {showModal && <CreateTodoModal setAllTodos={setAllTodos} />}
     </div>
   );
 }

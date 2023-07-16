@@ -35,7 +35,7 @@ exports.addTodo = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Todo added successfully",
-      data: createToDo._id,
+      data: createToDo,
     });
   } catch (error) {
     console.error(error);
@@ -98,7 +98,7 @@ exports.updateTodoChecked = async (req, res) => {
     const { checked, todoId } = req.body;
 
     if ((!todoId, !checked)) {
-      res.status(403).json({
+      res.status(401).json({
         success: false,
         message: "todo-id is missing",
       });
@@ -122,11 +122,10 @@ exports.updateTodoChecked = async (req, res) => {
       });
     }
 
-    // sending successful reposne
+    // sending successful response
     return res.status(200).json({
       success: true,
       message: "Updated todo checked",
-      updatedTodo: updatedTodo,
     });
   } catch (error) {
     console.error(error);

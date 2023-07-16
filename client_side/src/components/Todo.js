@@ -2,12 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { BsPencilFill } from "react-icons/bs";
-import { deleteTodo, updateTodo } from "../service-calls/deleteUpdateTodo";
+import {
+  deleteTodo,
+  updateTodoTitle,
+  updateTodoChecked,
+} from "../service-calls/deleteUpdateTodo";
 
 const Todo = (props) => {
   const [todoTitle, setTodoTitle] = useState(props.title);
   const [update, setUpdate] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.checked);
+  // console.log("checked at start: ", checked);
 
   // update button handler
   function handleUpdate(event) {
@@ -19,7 +24,7 @@ const Todo = (props) => {
         updatedTitle,
         todoId,
       });
-      updateTodo(updateTodoRequest);
+      updateTodoTitle(updateTodoRequest);
 
       // set update to false to display label with updated title on Ui again
       setUpdate(false);
@@ -34,7 +39,21 @@ const Todo = (props) => {
     deleteTodo(deleteTodoRequest);
 
     // remove this item from todo Container
-    props.handleDelete(todoId);
+    props.handleDeleteTodo(todoId);
+  }
+
+  // checked change handler
+  function handleCheckedChange() {
+    // console.log("inside checked change handler function");
+    setChecked(!checked);
+    // console.log("checked :", checked);
+
+    const updateTodoCheckedBody = JSON.stringify({
+      checked: checked,
+      todoId: props.id,
+    });
+    console.log(updateTodoCheckedBody);
+    updateTodoChecked(updateTodoCheckedBody);
   }
 
   return (
@@ -45,8 +64,8 @@ const Todo = (props) => {
           type="checkbox"
           id={props.id}
           className=""
-          onChange={() => setChecked(!checked)}
-          // todo: checked = ?
+          onChange={handleCheckedChange}
+          defaultChecked={props?.checked}
         />
         {!update ? (
           <label

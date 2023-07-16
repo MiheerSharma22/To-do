@@ -4,20 +4,20 @@ import { useDispatch } from "react-redux";
 import { hideModal } from "../redux/slices/ShowModal";
 import addTodo from "../service-calls/addTodo";
 
-const CreateTodoModal = () => {
+const CreateTodoModal = ({ setAllTodos }) => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
   async function handleAddTodo(event) {
     const createTodoRequest = JSON.stringify({
       title: title,
-      todoId: 1,
     });
 
     const response = await addTodo(createTodoRequest);
     const data = await response.json();
 
-    console.log("Add todo response: ", data);
+    // updating alltodos by adding recently created todo in it
+    setAllTodos((current) => [...current, data.data]);
 
     dispatch(hideModal());
   }

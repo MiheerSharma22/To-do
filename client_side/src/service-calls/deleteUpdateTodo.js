@@ -12,7 +12,7 @@ const deleteTodo = async (requestBody) => {
   return response;
 };
 
-const updateTodo = async (requestBody) => {
+const updateTodoTitle = async (requestBody) => {
   const response = await fetch(`${URL}/updateTodoTitle`, {
     method: "PUT",
     headers: {
@@ -24,4 +24,16 @@ const updateTodo = async (requestBody) => {
   return response;
 };
 
-export { deleteTodo, updateTodo };
+const updateTodoChecked = async (requestBody) => {
+  const response = await fetch(`${URL}/updateTodoChecked`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: `${requestBody}`,
+  });
+
+  return response;
+};
+
+export { deleteTodo, updateTodoTitle, updateTodoChecked };
