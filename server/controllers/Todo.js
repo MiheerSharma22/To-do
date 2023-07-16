@@ -4,10 +4,10 @@ const User = require("../models/User");
 // add to-do
 exports.addTodo = async (req, res) => {
   try {
-    const { title, checked, todoId, email } = req.body;
+    const { title, checked, email } = req.body;
 
     // handling empty title
-    if ((!title, !todoId)) {
+    if (!title) {
       return res.status(403).json({
         success: false,
         message: "Please enter a title",
@@ -18,9 +18,7 @@ exports.addTodo = async (req, res) => {
     const createToDo = await Todo.create({
       title: title,
       checked: checked,
-      todoId: todoId,
     });
-    console.log(createToDo);
 
     // adding this todo db id into loggedIn user's todos array
     // const pushTodo = await User.findOneAndUpdate(
@@ -61,8 +59,8 @@ exports.updateTodoTitle = async (req, res) => {
     }
 
     // find respective todo on basis of todo id and update its title and get the new updated field in response
-    const updatedTodo = await Todo.findOneAndUpdate(
-      { todoId: todoId },
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      { _id: todoId },
       {
         title: updatedTitle,
       },
@@ -78,8 +76,6 @@ exports.updateTodoTitle = async (req, res) => {
           "Todo with specified id does not exist. Please enter valid id!",
       });
     }
-
-    console.log("Updated todo is: ", updatedTodo);
 
     // sending successful response
     return res.status(200).json({
@@ -101,16 +97,16 @@ exports.updateTodoChecked = async (req, res) => {
   try {
     const { checked, todoId } = req.body;
 
-    if (!todoId) {
+    if ((!todoId, !checked)) {
       res.status(403).json({
         success: false,
         message: "todo-id is missing",
       });
     }
 
-    // find respective todo on basis of todo id and update its title and get the new updated field in response
-    const updatedTodo = await Todo.findOneAndUpdate(
-      { todoId: todoId },
+    // find respective todo on basis of todo id and update its checked and get the new updated field in response
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      { _id: todoId },
       {
         checked: checked,
       },
@@ -122,12 +118,9 @@ exports.updateTodoChecked = async (req, res) => {
     if (!updatedTodo) {
       return res.status(404).json({
         success: false,
-        message:
-          "Todo with speicified id does not exist. Please enter valid id!",
+        message: "Todo with speicified id does not exist!",
       });
     }
-
-    console.log("Updated todo is: ", updatedTodo);
 
     // sending successful reposne
     return res.status(200).json({
@@ -156,8 +149,6 @@ exports.deleteTodo = async (req, res) => {
       });
     }
 
-    const currentTodoToBeDeleted = await Todo.findOne({ todoId: todoId });
-
     // delete todo db id from user's todos array
     // await User.findOneAndUpdate(
     //   { email: email },
@@ -168,7 +159,7 @@ exports.deleteTodo = async (req, res) => {
     //   }
     // );
 
-    await Todo.findOneAndDelete({ todoId: todoId });
+    await Todo.findByIdAndDelete({ _id: todoId });
 
     return res.status(200).json({
       success: true,
