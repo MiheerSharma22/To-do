@@ -95,7 +95,7 @@ exports.updateTodoTitle = async (req, res) => {
 //update todo checked
 exports.updateTodoChecked = async (req, res) => {
   try {
-    const { checked, todoId, email } = req.body;
+    const { checked, todoId } = req.body;
 
     if (!todoId) {
       res.status(401).json({
