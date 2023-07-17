@@ -183,17 +183,27 @@ exports.deleteTodo = async (req, res) => {
   }
 };
 
-// get all todos
+// get all todos (new)
 exports.getAllTodos = async (req, res) => {
   try {
-    const allTodos = await Todo.find({});
+    // fetch data from request body
+    const { email } = req.body;
 
-    if (allTodos.length === 0) {
+    const user = await User.findOne({ email: email });
+
+    if (user.todos.length === 0) {
       return res.status(404).json({
         success: false,
         message: "There are no todo items available. Please create one!",
       });
     }
+
+    // fetching each document from Todo DB corresponding to stored ids of created todos
+    const allTodos = await Todo.find({ _id: { $in: user.todos } })
+      .populate()
+      .exec();
+
+    console.log("alltodos:", allTodos);
 
     return res.status(200).json({
       success: true,
@@ -208,3 +218,29 @@ exports.getAllTodos = async (req, res) => {
     });
   }
 };
+
+// get all todos (OLD)
+// exports.getAllTodos = async (req, res) => {
+//   try {
+//     const allTodos = await Todo.find({});
+
+//     if (allTodos.length === 0) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "There are no todo items available. Please create one!",
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "All Todos retreived successfully",
+//       data: allTodos,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error in fetching the Todos",
+//     });
+//   }
+// };
