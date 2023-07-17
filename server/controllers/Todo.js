@@ -21,15 +21,15 @@ exports.addTodo = async (req, res) => {
     });
 
     // adding this todo db id into loggedIn user's todos array
-    // const pushTodo = await User.findOneAndUpdate(
-    //   { email: email },
-    //   {
-    //     $push: {
-    //       todos: createToDo._id,
-    //     },
-    //   },
-    //   { new: true }
-    // );
+    const pushTodo = await User.findOneAndUpdate(
+      { email: email },
+      {
+        $push: {
+          todos: createToDo._id,
+        },
+      },
+      { new: true }
+    );
 
     // sending successful reponse
     return res.status(200).json({
