@@ -95,7 +95,7 @@ exports.updateTodoTitle = async (req, res) => {
 //update todo checked
 exports.updateTodoChecked = async (req, res) => {
   try {
-    const { checked, todoId } = req.body;
+    const { checked, todoId, email } = req.body;
 
     if (!todoId) {
       res.status(401).json({
@@ -148,15 +148,25 @@ exports.deleteTodo = async (req, res) => {
       });
     }
 
+    // find todo with given id
+    const currentTodoToBeDeleted = await Todo.findById({ _id: todoId });
+
+    if (!currentTodoToBeDeleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Invalid todo id",
+      });
+    }
+
     // delete todo db id from user's todos array
-    // await User.findOneAndUpdate(
-    //   { email: email },
-    //   {
-    //     $pull: {
-    //       todos: currentTodoToBeDeleted._id,
-    //     },
-    //   }
-    // );
+    await User.findOneAndUpdate(
+      { email: email },
+      {
+        $pull: {
+          todos: currentTodoToBeDeleted._id,
+        },
+      }
+    );
 
     await Todo.findByIdAndDelete({ _id: todoId });
 
