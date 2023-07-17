@@ -87,7 +87,7 @@ exports.updateTodoTitle = async (req, res) => {
     console.error(error);
     return res.status(500).json({
       success: false,
-      message: "Error in updating todo",
+      message: "Error in updating todo title",
     });
   }
 };
@@ -131,7 +131,7 @@ exports.updateTodoChecked = async (req, res) => {
     console.error(error);
     return res.status(500).json({
       success: false,
-      message: "Error in updating todo",
+      message: "Error in updating todo checked",
     });
   }
 };
