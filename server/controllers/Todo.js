@@ -165,9 +165,11 @@ exports.deleteTodo = async (req, res) => {
         $pull: {
           todos: currentTodoToBeDeleted._id,
         },
-      }
+      },
+      { new: true }
     );
 
+    // delete todo from todo's DB
     await Todo.findByIdAndDelete({ _id: todoId });
 
     return res.status(200).json({
@@ -188,7 +190,6 @@ exports.getAllTodos = async (req, res) => {
   try {
     // fetch data from request body
     const email = req.query.email;
-    console.log("email: ", email);
 
     const user = await User.findOne({ email: email });
 
@@ -203,8 +204,6 @@ exports.getAllTodos = async (req, res) => {
     const allTodos = await Todo.find({ _id: { $in: user.todos } })
       .populate()
       .exec();
-
-    console.log("alltodos:", allTodos);
 
     return res.status(200).json({
       success: true,
