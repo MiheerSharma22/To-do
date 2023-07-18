@@ -183,11 +183,12 @@ exports.deleteTodo = async (req, res) => {
   }
 };
 
-// get all todos (new)
+// get all todos (new, axios use krna hai in front end to send email in params)
 exports.getAllTodos = async (req, res) => {
   try {
     // fetch data from request body
-    const { email } = req.body;
+    const email = req.query.email;
+    console.log("email: ", email);
 
     const user = await User.findOne({ email: email });
 
