@@ -6,13 +6,14 @@ import fetchTodo from "../service-calls/fetchTodo";
 
 const TodoListContainer = ({ allTodos, setAllTodos }) => {
   const [loading, setLoading] = useState(false);
+  const email = "miheer.sharma1@gmail.com";
 
   async function init() {
     // setting loading to true
     setLoading(true);
 
     // fetching all the todos from the Db, if there are any
-    const response = await fetchTodo();
+    const response = await fetchTodo(email);
 
     // if we get something in response (that is if any todos are available)
     if (response.status === 200) {
