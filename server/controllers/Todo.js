@@ -218,29 +218,3 @@ exports.getAllTodos = async (req, res) => {
     });
   }
 };
-
-// get all todos (OLD)
-// exports.getAllTodos = async (req, res) => {
-//   try {
-//     const allTodos = await Todo.find({});
-
-//     if (allTodos.length === 0) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "There are no todo items available. Please create one!",
-//       });
-//     }
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "All Todos retreived successfully",
-//       data: allTodos,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Error in fetching the Todos",
-//     });
-//   }
-// };
