@@ -6,12 +6,12 @@ import fetchTodo from "../service-calls/fetchTodo";
 import { displayModal } from "../redux/slices/ShowModal";
 import { useDispatch } from "react-redux";
 
-const TodoListContainer = ({ allTodos, setAllTodos }) => {
+const TodoListContainer = ({ allTodos, setAllTodos, email }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const email = "miheer.sharma1@gmail.com";
 
   async function init() {
+    console.log("email:", email);
     // setting loading to true
     setLoading(true);
 
@@ -60,6 +60,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
               title={todo.title}
               handleDeleteTodo={deleteTodo}
               checked={todo.checked}
+              email={email}
             />
           ))
         ) : (

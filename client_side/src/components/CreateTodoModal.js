@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import { hideModal } from "../redux/slices/ShowModal";
 import addTodo from "../service-calls/addTodo";
 
-const CreateTodoModal = ({ setAllTodos }) => {
+const CreateTodoModal = ({ setAllTodos, email }) => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
-  const email = "miheer.sharma1@gmail.com";
 
   // function to handle new added todo into DB and updating allTodos array by pushing it into the array
   async function handleAddTodo(event) {
@@ -48,7 +47,7 @@ const CreateTodoModal = ({ setAllTodos }) => {
           className="p-[0.5rem] text-[1.5rem] outline-none border border-black rounded-sm"
           onChange={(event) => setTitle(event.target.value)}
           value={title}
-          autoComplete={false}
+          autoComplete="off"
         />
 
         {/* add todo button */}

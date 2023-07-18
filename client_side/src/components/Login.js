@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { login } from "../service-calls/loginSignUp";
 
-const Login = () => {
+const Login = ({ setUserEmail }) => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -38,6 +38,7 @@ const Login = () => {
     // todo: show a login toast
 
     if (res.success) {
+      setUserEmail(formData.email);
       navigate("/todos");
     }
   }
@@ -57,6 +58,7 @@ const Login = () => {
           name="email"
           className="w-full bg-transparent p-[0.5rem] border-b border-red-600 text-[#ff5733] placeholder:text-[#cccccc83] outline-none text-xl"
           onChange={formChangeHandler}
+          autoComplete="off"
         />
 
         {/* password container */}

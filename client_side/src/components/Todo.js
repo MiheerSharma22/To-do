@@ -12,7 +12,6 @@ const Todo = (props) => {
   const [todoTitle, setTodoTitle] = useState(props.title);
   const [update, setUpdate] = useState(false);
   const [checked, setChecked] = useState(props.checked);
-  const email = "miheer.sharma1@gmail.com";
 
   // update button handler
   function handleUpdate(event) {
@@ -35,7 +34,7 @@ const Todo = (props) => {
   // delete button handler
   function handleDelete() {
     const todoId = props.id;
-    const deleteTodoRequest = JSON.stringify({ todoId, email });
+    const deleteTodoRequest = JSON.stringify({ todoId, email: props.email });
     deleteTodo(deleteTodoRequest);
 
     // remove this item from todo Container
