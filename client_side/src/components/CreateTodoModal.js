@@ -48,6 +48,7 @@ const CreateTodoModal = ({ setAllTodos }) => {
           className="p-[0.5rem] text-[1.5rem] outline-none border border-black rounded-sm"
           onChange={(event) => setTitle(event.target.value)}
           value={title}
+          autoComplete={false}
         />
 
         {/* add todo button */}
