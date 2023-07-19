@@ -5,18 +5,19 @@ import Spinner from "./Spinner";
 import fetchTodo from "../service-calls/fetchTodo";
 import { displayModal } from "../redux/slices/ShowModal";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const TodoListContainer = ({ allTodos, setAllTodos, email }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function init() {
-    console.log("email:", email);
     // setting loading to true
     setLoading(true);
 
     // fetching all the todos from the Db, if there are any
-    const response = await fetchTodo(email);
+    const response = await fetchTodo();
 
     // if we get something in response (that is if any todos are available)
     if (response.status === 200) {
@@ -41,8 +42,19 @@ const TodoListContainer = ({ allTodos, setAllTodos, email }) => {
     setAllTodos(newList);
   };
 
+  function handleLogOut() {
+    localStorage.clear();
+    navigate("/");
+  }
+
   return (
     <div className="py-[3rem] flex items-center justify-center text-white min-w-screen min-h-screen  relative overflow-x-hidden">
+      <button
+        className="text-[#FF5733] hover:text-red-600 transition-all duration-150 absolute top-5 right-[5rem]"
+        onClick={handleLogOut}
+      >
+        Logout
+      </button>
       <div className="w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[2rem] flex flex-col relative">
         <p className="heading text-center text-[2rem] mb-[0.75rem] text-[#FF5733]">
           TO-DO List !
@@ -60,7 +72,6 @@ const TodoListContainer = ({ allTodos, setAllTodos, email }) => {
               title={todo.title}
               handleDeleteTodo={deleteTodo}
               checked={todo.checked}
-              email={email}
             />
           ))
         ) : (

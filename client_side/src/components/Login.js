@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { login } from "../service-calls/loginSignUp";
 
-const Login = ({ setUserEmail }) => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -33,12 +33,11 @@ const Login = ({ setUserEmail }) => {
 
     const response = await login(loginBody);
     const res = await response.json();
-    console.log("login response:", res);
 
     // todo: show a login toast
 
     if (res.success) {
-      setUserEmail(formData.email);
+      localStorage.setItem("email", formData.email);
       navigate("/todos");
     }
   }

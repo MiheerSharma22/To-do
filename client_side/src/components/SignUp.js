@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { signUp } from "../service-calls/loginSignUp";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const SignUp = ({ setUserEmail }) => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -42,7 +42,8 @@ const SignUp = ({ setUserEmail }) => {
     // todo: show a login toast
 
     if (res.success) {
-      setUserEmail(formData.email);
+      // localStorage.clear();
+      localStorage.setItem("email", formData.email);
       navigate("/todos");
     }
   }

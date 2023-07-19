@@ -34,7 +34,10 @@ const Todo = (props) => {
   // delete button handler
   function handleDelete() {
     const todoId = props.id;
-    const deleteTodoRequest = JSON.stringify({ todoId, email: props.email });
+    const deleteTodoRequest = JSON.stringify({
+      todoId,
+      email: localStorage.getItem("email"),
+    });
     deleteTodo(deleteTodoRequest);
 
     // remove this item from todo Container
