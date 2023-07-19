@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { login } from "../service-calls/loginSignUp";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,12 +34,20 @@ const Login = () => {
 
     const response = await login(loginBody);
     const res = await response.json();
-
-    // todo: show a login toast
+    console.log(res);
 
     if (res.success) {
       localStorage.setItem("email", formData.email);
+      toast.success("Logged In Successfully!");
       navigate("/todos");
+    } else if (response.status === 401) {
+      toast.error("Both Fields are Required");
+    } else if (response.status === 404) {
+      toast.error("Email does not exist. Register First!");
+    } else if (response.status === 403) {
+      toast.error("Wrong email or password!");
+    } else if (response.status === 500) {
+      toast.error("Error Logging in. PLease Try again!");
     }
   }
 
