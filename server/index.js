@@ -16,7 +16,7 @@ app.use(express.json());
 // adding cors middleware to facilitate communication between server(backend) and client(frontend) via requests and responses
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://to-do-frontend-psi.vercel.app/",
+  "https://to-do-frontend-psi.vercel.app",
 ];
 app.use(
   cors({
