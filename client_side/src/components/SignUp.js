@@ -14,6 +14,8 @@ const SignUp = () => {
     password: "",
   });
 
+  const { fName, lName, email, password } = formData;
+
   // handle form fields' state changes
   function formChangeHandler(event) {
     setFormData((prev) => {
@@ -30,10 +32,10 @@ const SignUp = () => {
     event.preventDefault();
 
     const signupBody = JSON.stringify({
-      fName: formData.fName,
-      lName: formData.lName,
-      email: formData.email,
-      password: formData.password,
+      fName,
+      lName,
+      email,
+      password,
     });
 
     const response = await signUp(signupBody);
@@ -41,7 +43,7 @@ const SignUp = () => {
     console.log("signup response:", res);
 
     if (res.success) {
-      localStorage.setItem("email", formData.email);
+      localStorage.setItem("email", email);
       toast.success("User registered successfully");
       navigate("/todos");
     } else if (response.status === 400) {
@@ -72,6 +74,7 @@ const SignUp = () => {
               className="w-full bg-transparent p-[0.5rem] border-b border-red-600 text-[#ff5733] placeholder:text-[#cccccc83] outline-none text-xl"
               onChange={formChangeHandler}
               autoComplete="off"
+              value={fName}
             />
             <input
               type="text"
@@ -81,6 +84,7 @@ const SignUp = () => {
               className="w-full bg-transparent p-[0.5rem] border-b border-red-600 text-[#ff5733] placeholder:text-[#cccccc83] outline-none text-xl"
               onChange={formChangeHandler}
               autoComplete="off"
+              value={lName}
             />
           </div>
 
@@ -92,6 +96,7 @@ const SignUp = () => {
             className="w-full bg-transparent p-[0.5rem] border-b border-red-600 text-[#ff5733] placeholder:text-[#cccccc83] outline-none text-xl"
             onChange={formChangeHandler}
             autoComplete="off"
+            value={email}
           />
 
           {/* password container */}
@@ -104,6 +109,7 @@ const SignUp = () => {
               className="w-full bg-transparent p-[0.5rem] text-[#ff5733] placeholder:text-[#cccccc83] outline-none text-xl"
               onChange={formChangeHandler}
               autoComplete="off"
+              value={password}
             />
             {showPassword ? (
               <button type="button" onClick={() => setShowPassword(false)}>
