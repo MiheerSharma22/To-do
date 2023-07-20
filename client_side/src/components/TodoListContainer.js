@@ -5,19 +5,21 @@ import Spinner from "./Spinner";
 import fetchTodo from "../service-calls/fetchTodo";
 import { displayModal } from "../redux/slices/ShowModal";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const TodoListContainer = ({ allTodos, setAllTodos, email }) => {
+const TodoListContainer = ({ allTodos, setAllTodos }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { email } = location.state;
 
   async function init() {
     // setting loading to true
     setLoading(true);
 
     // fetching all the todos from the Db, if there are any
-    const response = await fetchTodo();
+    const response = await fetchTodo(email);
 
     // if we get something in response (that is if any todos are available)
     if (response.status === 200) {

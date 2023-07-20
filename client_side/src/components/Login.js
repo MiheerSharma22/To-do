@@ -39,7 +39,11 @@ const Login = () => {
     if (res.success) {
       localStorage.setItem("email", formData.email);
       toast.success("Logged In Successfully!");
-      navigate("/todos");
+      navigate("/todos", {
+        state: {
+          email: formData.email,
+        },
+      });
     } else if (response.status === 401) {
       toast.error("Both Fields are Required");
     } else if (response.status === 404) {
