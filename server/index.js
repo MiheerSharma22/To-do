@@ -20,7 +20,7 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    origin: "https://to-do-frontend-psi.vercel.app", // front end path(url) from where the request will be made to the backend or server
+    origin: allowedOrigins, // front end path(url) from where the request will be made to the backend or server
     credentials: true,
   })
 );
