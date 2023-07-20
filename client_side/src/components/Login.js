@@ -34,7 +34,6 @@ const Login = () => {
 
     const response = await login(loginBody);
     const res = await response.json();
-    console.log(res);
 
     if (res.success) {
       localStorage.setItem("email", formData.email);
