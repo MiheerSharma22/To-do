@@ -45,7 +45,11 @@ const SignUp = () => {
     if (res.success) {
       localStorage.setItem("email", email);
       toast.success("User registered successfully");
-      navigate("/todos");
+      navigate("/todos", {
+        state: {
+          email: formData.email,
+        },
+      });
     } else if (response.status === 400) {
       toast.error("All Fields Required");
     } else if (response.status === 406) {
