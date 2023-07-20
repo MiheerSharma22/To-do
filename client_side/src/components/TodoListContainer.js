@@ -57,7 +57,8 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
       >
         Logout
       </button>
-      <div className="w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[2rem] flex flex-col relative">
+      {/* todo list container */}
+      <div className="w-[95%] md:w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[1rem] md:p-[2rem] flex flex-col ">
         <p className="heading text-center text-[2rem] mb-[0.75rem] text-[#FF5733]">
           TO-DO List !
         </p>
@@ -83,7 +84,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
         )}
 
         <button
-          className="addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent fixed top-[85%] right-[4%] transition-all duration-200"
+          className="addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent fixed top-[91%] right-[50%] translate-x-[50%] lg:translate-x-0 lg:top-[85%] lg:right-[4%] transition-all duration-200"
           onClick={handleShowModal}
         >
           Add Items

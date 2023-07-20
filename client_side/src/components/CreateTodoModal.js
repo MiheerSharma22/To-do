@@ -31,7 +31,7 @@ const CreateTodoModal = ({ setAllTodos }) => {
     >
       {/* modal container */}
       <div
-        className="bg-[#fff] w-[50%] h-fit flex flex-col rounded-lg modal-container relative py-[3rem] px-[1.5rem]"
+        className="bg-[#fff] w-[98%] md:w-[50%] h-fit flex flex-col rounded-lg modal-container relative py-[3rem] px-[1.5rem]"
         onClick={(event) => event.stopPropagation()}
       >
         <label

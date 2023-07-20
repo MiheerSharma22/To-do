@@ -57,7 +57,7 @@ const Todo = (props) => {
   }
 
   return (
-    <div className="flex py-[1rem] px-[1.5rem] rounded-[10px] items-center justify-between">
+    <div className="flex py-[1rem] px-0 md:px-[1.5rem] rounded-[10px] items-center justify-between">
       {/* checkbox and todo title container */}
       <div className="flex items-center gap-[1rem] cursor-pointer p-0">
         <input
