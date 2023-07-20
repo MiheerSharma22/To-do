@@ -29,30 +29,10 @@ exports.login = async (req, res) => {
 
     // verify password and generate a JWT token
     if (await bcrypt.compare(password, existingUser.password)) {
-      // password match -> generate token and insert in "existingUser" to be sent back as a response
-      const payload = {
-        email: existingUser.email,
-        id: existingUser._id,
-      };
-
-      let token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "2h",
-      });
-
-      // add token in existing user and removing passworkd from it for security reasons (as this will be sent as a response)
-      existingUser.token = token;
-      existingUser.password = undefined;
-
-      // preparing a cookie to be sent
-      const options = {
-        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // cookie will expire in 1 day
-        httpOnly: true,
-      };
-      res.cookie("token", token, options).status(200).json({
+      res.status(200).json({
         success: true,
         message: " User Logged in successfully",
         existingUser,
-        token,
       });
     } else {
       return res.status(403).json({
