@@ -57,9 +57,9 @@ const Todo = (props) => {
   }
 
   return (
-    <div className="flex py-[1rem] px-0 md:px-[1.5rem] rounded-[10px] items-center justify-between">
+    <div className="flex py-[1rem] px-0 md:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line">
       {/* checkbox and todo title container */}
-      <div className="flex items-center gap-[1rem] cursor-pointer p-0">
+      <div className="md:w-[75%] flex items-center gap-[1rem] cursor-pointer p-0">
         <input
           type="checkbox"
           id={props.id}
@@ -70,7 +70,7 @@ const Todo = (props) => {
         {!update ? (
           <label
             htmlFor={props.id}
-            className={`text-[1.2rem] cursor-pointer ${
+            className={`text-[1rem] md:text-[1.2rem] cursor-pointer ${
               checked &&
               "line-through decoration-[#ff5733] decoration-solid text-[#ccc]"
             }`}
@@ -82,36 +82,36 @@ const Todo = (props) => {
             type="text"
             defaultValue={todoTitle}
             onChange={(event) => setTodoTitle(event.target.value)}
-            autoFocus={true}
-            className="text-[1.2rem] border px-[0.5rem] bg-transparent outline-none"
+            autoFocus="true"
+            className="w-full text-[1rem] md:text-[1.2rem] border pl-[0.2rem] md:px-[0.5rem] bg-transparent outline-none"
           />
         )}
       </div>
 
       {/* delete and update button container */}
-      <div className="flex gap-[0.75rem]">
+      <div className="flex gap-[0.5rem] md:gap-[0.75rem]">
         {/* delete button */}
         <button
-          className="bg-red-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+          className="bg-red-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
           onClick={handleDelete}
         >
-          <MdDeleteForever className="text-[1.25rem] group-hover:text-red-500 transition-all duration-150 pointer-events-none" />
+          <MdDeleteForever className="text-[1rem] md:text-[1.25rem] group-hover:text-red-500 transition-all duration-150 pointer-events-none" />
         </button>
 
         {/* update button */}
         {update ? (
           <button
-            className="bg-green-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+            className="bg-green-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
             onClick={handleUpdate}
           >
-            <AiFillCheckCircle className="text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
+            <AiFillCheckCircle className="text-[1rem] md:text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
           </button>
         ) : (
           <button
-            className="bg-green-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+            className="bg-green-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
             onClick={() => setUpdate(true)}
           >
-            <BsPencilFill className="text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
+            <BsPencilFill className="text-[1rem] md:text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
           </button>
         )}
       </div>
