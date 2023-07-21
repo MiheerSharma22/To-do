@@ -28,6 +28,9 @@ const Todo = (props) => {
     });
     updateTodoTitle(updateTodoRequest);
 
+    // setting pointer events of add new todo modal button to all
+    props.setIsUpdating(false);
+
     return;
   }
 
@@ -109,7 +112,10 @@ const Todo = (props) => {
         ) : (
           <button
             className="bg-green-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
-            onClick={() => setUpdate(true)}
+            onClick={() => {
+              setUpdate(true);
+              props.setIsUpdating(true);
+            }}
           >
             <BsPencilFill className="text-[1rem] md:text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
           </button>

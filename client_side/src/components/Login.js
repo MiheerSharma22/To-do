@@ -63,7 +63,7 @@ const Login = () => {
         onSubmit={submitHandler}
       >
         <input
-          type="text"
+          type="email"
           placeholder="Enter your email"
           required
           name="email"

@@ -47,7 +47,7 @@ const SignUp = () => {
       toast.success("User registered successfully");
       navigate("/todos", {
         state: {
-          email: formData.email,
+          email: email,
         },
       });
     } else if (response.status === 400) {
@@ -93,7 +93,7 @@ const SignUp = () => {
           </div>
 
           <input
-            type="text"
+            type="email"
             placeholder="Enter your email"
             required
             name="email"

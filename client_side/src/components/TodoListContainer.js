@@ -6,13 +6,17 @@ import fetchTodo from "../service-calls/fetchTodo";
 import { displayModal } from "../redux/slices/ShowModal";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const TodoListContainer = ({ allTodos, setAllTodos }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { email } = location.state;
+
+  console.log("state object coming in location: ", location.state);
 
   async function init() {
     // setting loading to true
@@ -46,6 +50,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
 
   function handleLogOut() {
     localStorage.clear();
+    toast.success("Logged Out!");
     navigate("/");
   }
 
@@ -75,6 +80,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
               title={todo.title}
               handleDeleteTodo={deleteTodo}
               checked={todo.checked}
+              setIsUpdating={setIsUpdating}
             />
           ))
         ) : (
@@ -84,7 +90,9 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
         )}
 
         <button
-          className="addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent fixed top-[91%] right-[50%] translate-x-[50%] lg:translate-x-0 lg:top-[85%] lg:right-[4%] transition-all duration-200"
+          className={`${
+            isUpdating ? "pointer-events-none" : "pointer-events-all"
+          } addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent fixed top-[91%] right-[50%] translate-x-[50%] lg:translate-x-0 lg:top-[85%] lg:right-[4%] transition-all duration-200`}
           onClick={handleShowModal}
         >
           Add Items
