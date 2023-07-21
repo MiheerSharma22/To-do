@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { BsPencilFill } from "react-icons/bs";
+import { AiFillCheckCircle } from "react-icons/ai";
 import {
   deleteTodo,
   updateTodoTitle,
@@ -14,21 +15,20 @@ const Todo = (props) => {
   const [checked, setChecked] = useState(props.checked);
 
   // update button handler
-  function handleUpdate(event) {
-    if (event.key === "Enter") {
-      // make a backend call to update title in DB
-      const updatedTitle = event.target.value;
-      const todoId = props.id;
-      const updateTodoRequest = JSON.stringify({
-        updatedTitle,
-        todoId,
-      });
-      updateTodoTitle(updateTodoRequest);
+  function handleUpdate() {
+    // set update to false to display label with updated title on Ui again
+    setUpdate(false);
 
-      // set update to false to display label with updated title on Ui again
-      setUpdate(false);
-      return;
-    } else setTodoTitle(event.target.value);
+    console.log("todoTitle: ", todoTitle);
+    // make a backend call to update title in DB
+    const updatedTitle = todoTitle;
+    const todoId = props.id;
+    const updateTodoRequest = JSON.stringify({
+      updatedTitle,
+      todoId,
+    });
+    updateTodoTitle(updateTodoRequest);
+    return;
   }
 
   // delete button handler
@@ -81,7 +81,7 @@ const Todo = (props) => {
           <input
             type="text"
             defaultValue={todoTitle}
-            onKeyUp={handleUpdate}
+            onChange={(event) => setTodoTitle(event.target.value)}
             autoFocus={true}
             className="text-[1.2rem] border px-[0.5rem] bg-transparent outline-none"
           />
@@ -99,12 +99,21 @@ const Todo = (props) => {
         </button>
 
         {/* update button */}
-        <button
-          className="bg-green-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
-          onClick={() => setUpdate(true)}
-        >
-          <BsPencilFill className="text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
-        </button>
+        {update ? (
+          <button
+            className="bg-green-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+            onClick={handleUpdate}
+          >
+            <AiFillCheckCircle className="text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
+          </button>
+        ) : (
+          <button
+            className="bg-green-500 rounded-full p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+            onClick={() => setUpdate(true)}
+          >
+            <BsPencilFill className="text-[1.25rem] group-hover:text-green-500 transition-all duration-150 pointer-events-none" />
+          </button>
+        )}
       </div>
     </div>
   );
