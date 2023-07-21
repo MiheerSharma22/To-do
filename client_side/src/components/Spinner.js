@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Spinner = () => {
-  return (
-    <div className='spinner absolute top-[50%] left-[50%] translate-x-[-50%]'></div>
-  )
-}
+  return <div className="spinner absolute top-[50%] left-[48%]"></div>;
+};
 
-export default Spinner
+export default Spinner;
