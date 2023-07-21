@@ -29,8 +29,6 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
     setAllTodos(data.data);
     // }
 
-    console.log("all todos: ", allTodos);
-
     // setting loading to false
     setLoading(false);
   }
