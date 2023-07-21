@@ -16,8 +16,6 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
   const location = useLocation();
   const { email } = location.state;
 
-  console.log("state object coming in location: ", location.state);
-
   async function init() {
     // setting loading to true
     setLoading(true);
@@ -26,10 +24,12 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
     const response = await fetchTodo(email);
 
     // if we get something in response (that is if any todos are available)
-    if (response.status === 200) {
-      const data = await response.json();
-      setAllTodos(data.data);
-    }
+    // if (response.status === 200) {
+    const data = await response.json();
+    setAllTodos(data.data);
+    // }
+
+    console.log("all todos: ", allTodos);
 
     // setting loading to false
     setLoading(false);
@@ -72,7 +72,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
         {/* load each todo fetched from the Db onto UI */}
         {loading ? (
           <Spinner />
-        ) : allTodos.length > 0 ? (
+        ) : allTodos?.length > 0 ? (
           allTodos.map((todo, index) => (
             <Todo
               key={todo._id}
