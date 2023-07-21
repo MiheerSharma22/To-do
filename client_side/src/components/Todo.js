@@ -19,7 +19,6 @@ const Todo = (props) => {
     // set update to false to display label with updated title on Ui again
     setUpdate(false);
 
-    console.log("todoTitle: ", todoTitle);
     // make a backend call to update title in DB
     const updatedTitle = todoTitle;
     const todoId = props.id;
@@ -28,6 +27,7 @@ const Todo = (props) => {
       todoId,
     });
     updateTodoTitle(updateTodoRequest);
+
     return;
   }
 
@@ -59,7 +59,7 @@ const Todo = (props) => {
   return (
     <div className="flex py-[1rem] px-0 md:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line">
       {/* checkbox and todo title container */}
-      <div className="md:w-[75%] flex items-center gap-[1rem] cursor-pointer p-0">
+      <div className="w-[80%] md:w-[75%] flex items-center gap-[1rem] cursor-pointer p-0">
         <input
           type="checkbox"
           id={props.id}
@@ -82,8 +82,8 @@ const Todo = (props) => {
             type="text"
             defaultValue={todoTitle}
             onChange={(event) => setTodoTitle(event.target.value)}
-            autoFocus="true"
-            className="w-full text-[1rem] md:text-[1.2rem] border pl-[0.2rem] md:px-[0.5rem] bg-transparent outline-none"
+            autoFocus={true}
+            className="w-full text-[1rem] md:text-[1.2rem] border px-[0.75rem] bg-transparent outline-none"
           />
         )}
       </div>
