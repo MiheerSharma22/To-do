@@ -84,7 +84,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
             />
           ))
         ) : (
-          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] text-[2rem]">
+          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] text-[1rem] md:text-[2rem]">
             List Is Empty!
           </div>
         )}
