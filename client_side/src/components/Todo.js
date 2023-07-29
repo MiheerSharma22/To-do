@@ -60,7 +60,7 @@ const Todo = (props) => {
   }
 
   return (
-    <div className="flex py-[1rem] px-0 md:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line">
+    <div className="flex py-[1rem] hover:bg-[#ffffff1b] px-0 md:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line transition-all duration-150">
       {/* checkbox and todo title container */}
       <div className="w-[80%] md:w-[75%] flex items-center gap-[1rem] cursor-pointer p-0">
         <input
@@ -95,7 +95,8 @@ const Todo = (props) => {
       <div className="flex gap-[0.5rem] md:gap-[0.75rem]">
         {/* delete button */}
         <button
-          className="bg-red-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+          className={`bg-red-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150 
+          ${props.isUpdating ? "pointer-events-none" : "pointer-events-all"}`}
           onClick={handleDelete}
         >
           <MdDeleteForever className="text-[1rem] md:text-[1.25rem] group-hover:text-red-500 transition-all duration-150 pointer-events-none" />
@@ -111,7 +112,9 @@ const Todo = (props) => {
           </button>
         ) : (
           <button
-            className="bg-green-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150"
+            className={`bg-green-500 rounded-full p-[0.4rem] md:p-[0.5rem] group hover:bg-[#f7f6f6] transition-all duration-150 ${
+              props.isUpdating ? "pointer-events-none" : "pointer-events-all"
+            } `}
             onClick={() => {
               setUpdate(true);
               props.setIsUpdating(true);

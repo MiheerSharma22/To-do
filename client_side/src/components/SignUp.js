@@ -3,9 +3,11 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { signUp } from "../service-calls/loginSignUp";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import BtnSpinner from "./BtnSpinner";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fName: "",
@@ -30,6 +32,8 @@ const SignUp = () => {
   // to /todos route, loading and showing this user's todo after fetching from backend, since signing up, no todos intially
   async function submitHandler(event) {
     event.preventDefault();
+
+    setShowSpinner(true);
 
     const signupBody = JSON.stringify({
       fName,
@@ -57,6 +61,8 @@ const SignUp = () => {
     } else if (response.status === 500) {
       toast.error("Error in registration. Try again later!");
     }
+
+    setShowSpinner(false);
   }
 
   return (
@@ -125,12 +131,14 @@ const SignUp = () => {
               </button>
             )}
           </div>
+
           {/* submit button */}
-          <input
+          <button
             type="submit"
-            value={"Sign Up"}
             className="w-fit cursor-pointer place-self-center mt-[2rem] py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent transition-all duration-200"
-          />
+          >
+            {showSpinner ? <BtnSpinner /> : "Sign Up"}
+          </button>
         </form>
 
         <NavLink to="/login" className="mt-[2rem]">

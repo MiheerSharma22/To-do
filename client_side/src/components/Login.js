@@ -3,9 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { login } from "../service-calls/loginSignUp";
 import toast from "react-hot-toast";
+import BtnSpinner from "./BtnSpinner";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -26,6 +28,8 @@ const Login = () => {
   // to /todos route, loading and showing this user's todo after fetching from backend
   async function submitHandler(event) {
     event.preventDefault();
+
+    setShowSpinner(true);
 
     const loginBody = JSON.stringify({
       email: formData.email,
@@ -52,6 +56,8 @@ const Login = () => {
     } else if (response.status === 500) {
       toast.error("Error Logging in. PLease Try again!");
     }
+
+    setShowSpinner(false);
   }
 
   return (
@@ -93,11 +99,14 @@ const Login = () => {
           )}
         </div>
         {/* submit button */}
-        <input
+        <button
           type="submit"
-          value={"Login"}
-          className="w-fit cursor-pointer place-self-center mt-[2rem] py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent transition-all duration-200"
-        />
+          className={`${
+            showSpinner ? "pointer-events-none" : "pointer-events-all"
+          } w-fit cursor-pointer place-self-center mt-[2rem] py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent transition-all duration-200`}
+        >
+          {showSpinner ? <BtnSpinner /> : "Login"}
+        </button>
       </form>
 
       <NavLink to="/signup" className="mt-[5rem]">

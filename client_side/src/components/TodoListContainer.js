@@ -79,6 +79,7 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
               handleDeleteTodo={deleteTodo}
               checked={todo.checked}
               setIsUpdating={setIsUpdating}
+              isUpdating={isUpdating}
             />
           ))
         ) : (
