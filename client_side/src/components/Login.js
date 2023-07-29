@@ -109,16 +109,17 @@ const Login = () => {
         </button>
       </form>
 
-      <NavLink
-        to="/signup"
-        className={`${
-          showSpinner ? "pointer-events-none" : "pointer-events-all"
-        } mt-[5rem]`}
-      >
-        <p className="text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
+      {showSpinner ? (
+        <p className="mt-[5rem] text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
           Not registered yet? Sign up
         </p>
-      </NavLink>
+      ) : (
+        <NavLink to="/signup" className="mt-[5rem]">
+          <p className="text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
+            Not registered yet? Sign up
+          </p>
+        </NavLink>
+      )}
     </div>
   );
 };

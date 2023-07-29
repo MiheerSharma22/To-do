@@ -35,34 +35,34 @@ const SignUp = () => {
 
     setShowSpinner(true);
 
-    const signupBody = JSON.stringify({
-      fName,
-      lName,
-      email,
-      password,
-    });
+    // const signupBody = JSON.stringify({
+    //   fName,
+    //   lName,
+    //   email,
+    //   password,
+    // });
 
-    const response = await signUp(signupBody);
-    const res = await response.json();
-    console.log("signup response:", res);
+    // const response = await signUp(signupBody);
+    // const res = await response.json();
+    // console.log("signup response:", res);
 
-    if (res.success) {
-      localStorage.setItem("email", email);
-      toast.success("User registered successfully");
-      navigate("/todos", {
-        state: {
-          email: email,
-        },
-      });
-    } else if (response.status === 400) {
-      toast.error("All Fields Required");
-    } else if (response.status === 406) {
-      toast.error("Email already in use");
-    } else if (response.status === 500) {
-      toast.error("Error in registration. Try again later!");
-    }
+    // if (res.success) {
+    //   localStorage.setItem("email", email);
+    //   toast.success("User registered successfully");
+    //   navigate("/todos", {
+    //     state: {
+    //       email: email,
+    //     },
+    //   });
+    // } else if (response.status === 400) {
+    //   toast.error("All Fields Required");
+    // } else if (response.status === 406) {
+    //   toast.error("Email already in use");
+    // } else if (response.status === 500) {
+    //   toast.error("Error in registration. Try again later!");
+    // }
 
-    setShowSpinner(false);
+    // setShowSpinner(false);
   }
 
   return (
@@ -143,16 +143,21 @@ const SignUp = () => {
           </button>
         </form>
 
-        <NavLink
-          to="/login"
-          className={`${
-            showSpinner ? "pointer-events-none" : "pointer-events-all"
-          } mt-[2rem]`}
-        >
-          <p className="text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
+        {showSpinner ? (
+          <p
+            className={`${
+              showSpinner ? "pointer-events-none" : "pointer-events-all"
+            } text-lg text-[#ccc] mt-[2rem] hover:text-[#f9bd4e] transition-all duration-150`}
+          >
             Registered user? Log In
           </p>
-        </NavLink>
+        ) : (
+          <NavLink to="/login" className={` mt-[2rem]`}>
+            <p className="text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
+              Registered user? Log In
+            </p>
+          </NavLink>
+        )}
       </div>
     </div>
   );
