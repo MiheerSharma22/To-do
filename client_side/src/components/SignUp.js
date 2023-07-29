@@ -35,34 +35,34 @@ const SignUp = () => {
 
     setShowSpinner(true);
 
-    // const signupBody = JSON.stringify({
-    //   fName,
-    //   lName,
-    //   email,
-    //   password,
-    // });
+    const signupBody = JSON.stringify({
+      fName,
+      lName,
+      email,
+      password,
+    });
 
-    // const response = await signUp(signupBody);
-    // const res = await response.json();
-    // console.log("signup response:", res);
+    const response = await signUp(signupBody);
+    const res = await response.json();
+    console.log("signup response:", res);
 
-    // if (res.success) {
-    //   localStorage.setItem("email", email);
-    //   toast.success("User registered successfully");
-    //   navigate("/todos", {
-    //     state: {
-    //       email: email,
-    //     },
-    //   });
-    // } else if (response.status === 400) {
-    //   toast.error("All Fields Required");
-    // } else if (response.status === 406) {
-    //   toast.error("Email already in use");
-    // } else if (response.status === 500) {
-    //   toast.error("Error in registration. Try again later!");
-    // }
+    if (res.success) {
+      localStorage.setItem("email", email);
+      toast.success("User registered successfully");
+      navigate("/todos", {
+        state: {
+          email: email,
+        },
+      });
+    } else if (response.status === 400) {
+      toast.error("All Fields Required");
+    } else if (response.status === 406) {
+      toast.error("Email already in use");
+    } else if (response.status === 500) {
+      toast.error("Error in registration. Try again later!");
+    }
 
-    // setShowSpinner(false);
+    setShowSpinner(false);
   }
 
   return (
