@@ -135,13 +135,20 @@ const SignUp = () => {
           {/* submit button */}
           <button
             type="submit"
-            className="w-fit cursor-pointer place-self-center mt-[2rem] py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent transition-all duration-200"
+            className={`${
+              showSpinner ? "pointer-events-none" : "pointer-events-all"
+            } w-fit cursor-pointer place-self-center mt-[2rem] py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent transition-all duration-200`}
           >
             {showSpinner ? <BtnSpinner /> : "Sign Up"}
           </button>
         </form>
 
-        <NavLink to="/login" className="mt-[2rem]">
+        <NavLink
+          to="/login"
+          className={`${
+            showSpinner ? "pointer-events-none" : "pointer-events-all"
+          } mt-[2rem]`}
+        >
           <p className="text-lg text-[#ccc] hover:text-[#f9bd4e] transition-all duration-150">
             Registered user? Log In
           </p>
