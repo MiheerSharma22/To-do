@@ -60,7 +60,7 @@ const Todo = (props) => {
   }
 
   return (
-    <div className="flex py-[1rem] hover:bg-[#ffffff1b] px-0 md:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line transition-all duration-150">
+    <div className="flex py-[1rem] hover:bg-[#ffffff1b] px-[0.5rem] lg:px-[1.5rem] gap-[1rem] rounded-[10px] items-center justify-between whitespace-pre-line transition-all duration-150">
       {/* checkbox and todo title container */}
       <div className="w-[80%] md:w-[75%] flex items-center gap-[1rem] cursor-pointer p-0">
         <input

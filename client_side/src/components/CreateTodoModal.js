@@ -61,7 +61,7 @@ const CreateTodoModal = ({ setAllTodos }) => {
           type="button"
           className={`${
             showSpinner ? "pointer-events-none" : "pointer-events-all"
-          } w-fit bg-red-600 text-white py-[0.7rem] px-[2rem] mt-[1.5rem] rounded-full text-[1.2rem] hover:bg-transparent hover:outline outline-1 outline-red-600 hover:text-red-600 transition-all duration-200`}
+          } w-fit bg-red-600 text-white py-[0.7rem] px-[2rem] mt-[1.5rem] rounded-full text-[1.2rem] md:hover:bg-transparent md:hover:outline outline-1 outline-red-600 hover:text-red-600 transition-all duration-200`}
           onClick={handleAddTodo}
         >
           {showSpinner ? <BtnSpinner /> : "Add To-Do"}

@@ -53,15 +53,16 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
   }
 
   return (
-    <div className="py-[3rem] flex items-center justify-center text-white min-w-screen min-h-screen  relative overflow-x-hidden">
+    <div className="pt-[3rem] pb-[1rem] flex flex-col gap-5 lg:gap-8 items-center justify-center text-white min-w-screen min-h-screen  relative overflow-hidden">
       <button
         className="text-[#FF5733] hover:text-red-600 transition-all duration-150 absolute top-5 right-[5rem]"
         onClick={handleLogOut}
       >
         Logout
       </button>
+
       {/* todo list container */}
-      <div className="w-[95%] md:w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[1rem] md:p-[2rem] flex flex-col ">
+      <div className="w-[95%] md:w-[60%] min-h-[80vh] rounded-[2rem] bg-[#ffffff40] border border-[#ffffff59] p-[0.75rem] lg:p-[2rem] flex flex-col ">
         <p className="heading text-center text-[2rem] mb-[0.75rem] text-[#FF5733]">
           TO-DO List !
         </p>
@@ -87,16 +88,16 @@ const TodoListContainer = ({ allTodos, setAllTodos }) => {
             List Is Empty!
           </div>
         )}
-
-        <button
-          className={`${
-            isUpdating ? "pointer-events-none" : "pointer-events-all"
-          } addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent fixed top-[91%] right-[50%] translate-x-[50%] lg:translate-x-0 lg:top-[85%] lg:right-[4%] transition-all duration-200`}
-          onClick={handleShowModal}
-        >
-          Add Items
-        </button>
       </div>
+
+      <button
+        className={`${
+          isUpdating ? "pointer-events-none" : "pointer-events-all"
+        } addItems py-[0.7rem] px-[2rem] bg-gradient-to-r from-[#bd2525] to-[#d22727] text-white text-xl hover:text-[#bd2525] hover:outline-1 hover:outline hover:outline-offset-2 hover:outline-[#bd2525] hover:bg-gradient-to-r hover:from-transparent  transition-all duration-200`}
+        onClick={handleShowModal}
+      >
+        Add Items
+      </button>
     </div>
   );
 };
